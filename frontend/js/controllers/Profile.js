@@ -8,8 +8,10 @@ module.exports = Ractive.extend({
     var self = this;
     this.set(userModel.get('value'));
     this.on('updateProfile', function() {
-      userModel.set('value.userName', this.get('userName'));
+      userModel.set('value.email', this.get('email'));
       userModel.set('value.ingameName', this.get('ingameName'));
+      userModel.set('value.rank', this.get('rank'));
+      userModel.set('value.position', this.get('position'));
       if(this.get('password') != '') {
         userModel.set('value.password', this.get('password'));
       }

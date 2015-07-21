@@ -91,10 +91,14 @@ Router
     break;
     case 'PUT':
       processPOSTRequest(req, function(data) {
-        if(!data.userName || data.userName === '') {
-          error('Please fill your username.', res);
+        if(!data.email || data.email === '') {
+          error('Please fill your e-mail.', res);
         } else if(!data.ingameName || data.ingameName === '') {
           error('Please fill your in-game name.', res);
+        } else if(!data.rank || data.rank === '') {
+          error('Please fill your ladder rank.', res);
+        } else if(!data.position || data.position === '') {
+          error('Please fill your favourite position.', res);
         } else {
           getDatabaseConnection(function(db) {
             var collection = db.collection('users');
@@ -102,7 +106,7 @@ Router
               data.password = sha1(data.password);
             }
             collection.update(
-              { email: req.session.user.email },
+              { userName: req.session.user.userName },
               { $set: data }, 
               function(err, result) {
                 if(err) {
@@ -131,7 +135,11 @@ Router
         } else if(!data.email || data.email === '') {
           error('Invalid or missing email.', res);
         } else if(!data.password || data.password === '') {
-          error('Please fill your password.', res);
+          error('Invalid or missing password.', res);
+        } else if(!data.rank || data.rank === '') {
+          error('Invalid or missing ladder rank.', res);
+        } else if(!data.position || data.position === '') {
+          error('Invalid or missing position.', res);
         } else {
           getDatabaseConnection(function(db) {
             var collection = db.collection('users');

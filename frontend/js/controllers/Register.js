@@ -7,6 +7,8 @@ module.exports = Ractive.extend({
   onrender: function() {
     var self = this;
     this.observe('ingameName', userModel.setter('value.ingameName'));
+    this.observe('rank', userModel.setter('value.rank'));
+    this.observe('position', userModel.setter('value.position'));
     this.observe('userName', userModel.setter('value.userName'));
     this.observe('email', userModel.setter('value.email'));
     this.observe('password', userModel.setter('value.password'));
