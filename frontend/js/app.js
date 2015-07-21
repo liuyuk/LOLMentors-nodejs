@@ -3,6 +3,7 @@ var Home = require('./controllers/Home');
 var Register = require('./controllers/Register');
 var Login = require('./controllers/Login');
 var Profile = require('./controllers/Profile');
+var FindMentors = require('./controllers/FindMentors');
 var UserModel = require('./models/User');
 var currentPage;
 var body;
@@ -47,6 +48,14 @@ window.onload = function() {
       } else {
         Router.navigate('login');
       }      
+    })
+    .add('find-mentors', function() {
+      if(userModel.isLogged()) {
+        var p = new FindMentors();
+        showPage(p);
+      } else {
+        Router.navigate('login');
+      }
     })
     .add(function() {
       Router.navigate('home');

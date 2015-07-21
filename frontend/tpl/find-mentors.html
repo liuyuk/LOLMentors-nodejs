@@ -1,0 +1,31 @@
+<header>
+  <navigation></navigation>
+</header>
+<div class="hero">
+  <h1>Find Mentors</h1>
+</div>
+<form onsubmit="return false;">
+  {{#if loading}}
+    <p>Loading. Please wait.</p>
+  {{else}}
+    <h2>Please, type the name of your friend:</h2>
+    <input type="text" id="mentorName" value="{{mentorName}}"/>
+    <input type="button" value="Find" on-click="find" />
+  {{/if}}
+</form>
+{{#if foundFriends !== null}}
+  <div class="mentor-list">
+    {{#each foundFriends}}
+      <div class="mentor-list-item">
+        <h2>{{userName}}</h2>
+        <input type="button" value="Add as Mentor" on-click="add:{{id}}"/>
+      </div>
+    {{/each}}
+  </div>
+{{/if}}
+{{#if message !== ''}}
+  <div class="mentor-list">
+    <p>{{{message}}}</p>
+  </div>
+{{/if}}
+<appfooter />
