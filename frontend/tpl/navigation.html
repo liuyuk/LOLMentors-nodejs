@@ -1,12 +1,18 @@
-<nav>
-  <ul>
-    <li><a on-click="goto:home">Home</a></li>
-    {{#if !isLogged }}
-      <li><a on-click="goto:register">Register</a></li>
-      <li><a on-click="goto:login">Login</a></li>
-    {{else}}
-      <li class="right"><a on-click="goto:profile">Profile</a></li>
-      <li class="right"><a on-click="goto:logout">Logout</a></li>
-    {{/if}}
-  </ul>
-</nav>
+<div class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <a on-click="goto:home" class="navbar-brand">LOLMentors</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        {{#if !isLogged }}
+          <li><a on-click="goto:register">Register</a></li>
+          <li><a on-click="goto:login">Login</a></li>
+        {{else}}
+          <li class="right"><a on-click="goto:profile">Profile</a></li>
+          <li class="right"><a on-click="goto:logout">Logout</a></li>
+        {{/if}}
+      </ul>
+    </div>
+  </div>
+</div>
