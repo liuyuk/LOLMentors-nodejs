@@ -1,29 +1,57 @@
 <header>
   <navigation></navigation>
 </header>
-<div class="hero">
+<div class="row">
+  <div class="col-md-12">
+      <h1><img src="http://oi57.tinypic.com/eimfs3.jpg" class="img-responsive"></h1>
+  </div>
+</div>
+<div class="page-header">
   <h1>Register</h1>
 </div>
-<form>
-  {{#if error && error != ''}}
-    <div class="error">{{error}}</div>
-  {{/if}}
-  {{#if success && success != ''}}
-    <div class="success">{{{success}}}</div>
-  {{else}}
-    <label for="userName">Username</label>
-    <input type="text" id="userName" value="{{userName}}"/>
-    <label for="ingameName">In-game name</label>
-    <input type="text" id="ingameName" value="{{ingameName}}" />
-    <label for="rank">Ladder Rank</label>
-    <input type="text" id="rank" value="{{rank}}" />
-    <label for="position">Favourite Position</label>
-    <input type="text" id="position" value="{{position}}" />
-    <label for="email">Email</label>
-    <input type="text" id="email" value="{{email}}" />
-    <label for="password">Password</label>
-    <input type="password" id="password" value="{{password}}" />
-    <input type="button" value="register" on-click="register" />
-  {{/if}}
-</form>
+<div class="row">
+  <div class="col-lg-6">
+    <div class="well bs-component">
+      <form class="form-horizontal">
+        <fieldset>
+          {{#if error && error != ''}}
+            <div class="alert alert-dismissible alert-danger">{{error}}</div>
+          {{/if}}
+          {{#if success && success != ''}}
+            <div class="alert alert-dismissible alert-success">{{{success}}}</div>
+          {{else}}
+            <legend>Please Enter Your Information</legend>
+            <label for="userName" class="col-lg-2 control-label">Username</label>
+            <div class="col-lg-6">
+              <input type="text" class="form-control" id="userName" value="{{userName}}"/>
+            </div>
+            <label for="ingameName" class="col-lg-2 control-label">In-game name</label>
+            <div class="col-lg-6">
+              <input type="text" class="form-control" id="ingameName" value="{{ingameName}}" />
+            </div>
+            <label for="rank" class="col-lg-2 control-label">Ladder Rank</label>
+            <div class="col-lg-6">
+              <input type="text" class="form-control" id="rank" value="{{rank}}" />
+            </div>
+            <label for="position" class="col-lg-2 control-label">Favourite Position</label>
+            <div class="col-lg-6">
+              <input type="text" class="form-control" id="position" value="{{position}}" />
+            </div>
+            <label for="email" class="col-lg-2 control-label">Email</label>
+            <div class="col-lg-6">
+              <input type="text" class="form-control" id="email" value="{{email}}" />
+            </div>
+            <label for="password" class="col-lg-2 control-label">Password</label>
+            <div class="col-lg-6">
+              <input type="password" class="form-control" id="password" value="{{password}}" />
+            </div>
+            <br>
+              <input type="button" class="btn btn-primary" value="Register" on-click="register" />
+            </br>
+          {{/if}}
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>
 <appfooter />

@@ -8,14 +8,14 @@
   {{#if loading}}
     <p>Loading. Please wait.</p>
   {{else}}
-    <h2>Please, type the name of your friend:</h2>
-    <input type="text" id="mentorName" value="{{mentorName}}"/>
+    <h2>Please set your desired mentor's ladder rank:</h2>
+    <input type="text" id="rank" value="{{rank}}"/>
     <input type="button" value="Find" on-click="find" />
   {{/if}}
 </form>
-{{#if foundFriends !== null}}
+{{#if foundMentors !== null}}
   <div class="mentor-list">
-    {{#each foundFriends}}
+    {{#each foundMentors}}
       <div class="mentor-list-item">
         <h2>{{userName}}</h2>
         <input type="button" value="Add as Mentor" on-click="add:{{id}}"/>
