@@ -26,6 +26,21 @@ var getDatabaseConnection = function(callback) {
   }
 };
 
+var getUser = function(callback, req, res) {
+  getDatabaseConnection(function(db) {
+    var collection = db.collection('users');
+    collection.find({
+      userName: req.session.user.userName
+    }).toArray(function(err, result) {
+      if (result.length === 0) {
+        error('User not found', res);
+      } else {
+        callback(result[0]);
+      }
+    });
+  });
+};
+
 var querystring = require('querystring');
 var processPOSTRequest = function(req, callback) {
   var body = '';
@@ -168,6 +183,56 @@ Router
       });
     break;
   };
+})
+.add('api/mentors/find', function(req, res) {
+  if(req.session && req.session.user) {
+    if (req.method === 'POST') {
+      var findMentors = function(db, searchTarget, currentMentors) {
+        var collection = db.collection('users');
+        var regExp = new RegExp(searchTarget, 'gi');
+        var excludeCurrent = [req.session.user.userName];
+        currentMentors.forEach(function(value, index, arr) {
+          arr[index] = ObjectId(value);
+        });
+        collection.find({
+          $and: [
+              {
+                $or: [
+                  { rank : regExp },
+//                  { userName: regExp }
+                ]
+              },
+              { userName: { $nin: excludeCurrent } },
+              { _id: { $nin: currentMentors } }
+          ]
+        }).toArray(function(err, result) {
+          var foundMentors = [];
+          for (var i = 0; i<result.length; i++) {
+            foundMentors.push({
+              id: result[i]._id,
+              userName: result[i].userName,
+//              rank: result[i].rank,
+//              position: result[i].position
+            });
+          };
+          response({
+            mentors: foundMentors
+          }, res);
+        });
+      }
+      processPOSTRequest(req, function(data) {
+        getDatabaseConnection(function(db) {
+          getUser(function(user) {
+            findMentors(db, data.searchTarget, user.mentors || []);
+          }, req, res);
+        });
+      });
+    } else {
+      error('Invalid POST request.', res);
+    }
+  } else {
+    error('This method is only accessible when logged in.', res);
+  }
 })
 .add(function(req, res) {
   response({

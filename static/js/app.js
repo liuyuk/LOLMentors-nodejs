@@ -1,4 +1,6 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+var Mentors = require('../models/Mentors');
+
 module.exports = Ractive.extend({
   template: require('../../tpl/find-mentors'),
   components: {
@@ -12,10 +14,26 @@ module.exports = Ractive.extend({
     foundMentors: null
   },
   onrender: function() {
+    var model = new Mentors();
+    var self = this;
       
+    this.on('find', function(e) {
+      self.set('loading', true);
+      self.set('message', '');
+      var searchTarget = this.get('rank');
+      model.find(searchTarget, function(err, res) {
+        if (res.mentors && res.mentors.length > 0){
+          self.set('foundMentors', res.mentors);
+        } else {
+          self.set('foundMentors', null);
+            self.set('message', 'Sorry, there are no users in that rank');
+        }
+        self.set('loading', false);
+      });
+    });
   }
 });
-},{"../../tpl/find-mentors":14,"../views/Footer":12,"../views/Navigation":13}],2:[function(require,module,exports){
+},{"../../tpl/find-mentors":15,"../models/Mentors":10,"../views/Footer":13,"../views/Navigation":14}],2:[function(require,module,exports){
 module.exports = Ractive.extend({
   template: require('../../tpl/home'),
   components: {
@@ -26,7 +44,7 @@ module.exports = Ractive.extend({
     
   }
 });
-},{"../../tpl/home":16,"../views/Footer":12,"../views/Navigation":13}],3:[function(require,module,exports){
+},{"../../tpl/home":17,"../views/Footer":13,"../views/Navigation":14}],3:[function(require,module,exports){
 module.exports = Ractive.extend({
   template: require('../../tpl/login'),
   components: {
@@ -49,7 +67,7 @@ module.exports = Ractive.extend({
     });
   }
 });
-},{"../../tpl/login":17,"../views/Footer":12,"../views/Navigation":13}],4:[function(require,module,exports){
+},{"../../tpl/login":18,"../views/Footer":13,"../views/Navigation":14}],4:[function(require,module,exports){
 module.exports = Ractive.extend({
   template: require('../../tpl/profile'),
   components: {
@@ -85,7 +103,7 @@ module.exports = Ractive.extend({
     })
   }
 });
-},{"../../tpl/profile":19,"../views/Footer":12,"../views/Navigation":13}],5:[function(require,module,exports){
+},{"../../tpl/profile":20,"../views/Footer":13,"../views/Navigation":14}],5:[function(require,module,exports){
 module.exports = Ractive.extend({
   template: require('../../tpl/register'),
   components: {
@@ -112,7 +130,7 @@ module.exports = Ractive.extend({
     });
   }
 });
-},{"../../tpl/register":20,"../views/Footer":12,"../views/Navigation":13}],6:[function(require,module,exports){
+},{"../../tpl/register":21,"../views/Footer":13,"../views/Navigation":14}],6:[function(require,module,exports){
 var Router = require('./lib/Router')();
 var Home = require('./controllers/Home');
 var Register = require('./controllers/Register');
@@ -180,7 +198,7 @@ window.onload = function() {
   });
 
 }
-},{"./controllers/FindMentors":1,"./controllers/Home":2,"./controllers/Login":3,"./controllers/Profile":4,"./controllers/Register":5,"./lib/Router":8,"./models/User":10}],7:[function(require,module,exports){
+},{"./controllers/FindMentors":1,"./controllers/Home":2,"./controllers/Login":3,"./controllers/Profile":4,"./controllers/Register":5,"./lib/Router":8,"./models/User":11}],7:[function(require,module,exports){
 module.exports = {
   request: function(ops) {
     if(typeof ops == 'string') ops = { url: ops };
@@ -427,6 +445,31 @@ module.exports = Ractive.extend({
 },{"../lib/Ajax":7}],10:[function(require,module,exports){
 var ajax = require('../lib/Ajax');
 var Base = require('./Base');
+
+module.exports = Base.extend({
+  data: {
+    url:'/api/mentors'
+  },
+  find: function(searchTarget, callback){
+    ajax.request({
+      url: this.get('url') + '/find',
+      method: 'POST',
+      data: {
+        searchTarget: searchTarget
+      },
+      json: true
+    })
+    .done(function(result) {
+      callback(null, result);
+    })
+    .fail(function(xhr) {
+      callback(JSON.parse(xhr.responseText));
+    });
+  }
+});
+},{"../lib/Ajax":7,"./Base":9}],11:[function(require,module,exports){
+var ajax = require('../lib/Ajax');
+var Base = require('./Base');
 module.exports = Base.extend({
   data: {
     url: '/api/user'
@@ -466,14 +509,14 @@ module.exports = Base.extend({
     return this.get('value.userName');
   }
 });
-},{"../lib/Ajax":7,"./Base":9}],11:[function(require,module,exports){
+},{"../lib/Ajax":7,"./Base":9}],12:[function(require,module,exports){
 var Base = require('./Base');
 module.exports = Base.extend({
   data: {
     url: '/api/version'
   }
 });
-},{"./Base":9}],12:[function(require,module,exports){
+},{"./Base":9}],13:[function(require,module,exports){
 var FooterModel = require('../models/Version');
 
 module.exports = Ractive.extend({
@@ -483,25 +526,25 @@ module.exports = Ractive.extend({
     model.bindComponent(this).fetch();
   }
 });
-},{"../../tpl/footer":15,"../models/Version":11}],13:[function(require,module,exports){
+},{"../../tpl/footer":16,"../models/Version":12}],14:[function(require,module,exports){
 module.exports = Ractive.extend({
   template: require('../../tpl/navigation'),
   onconstruct: function() {
     this.data.isLogged = !!userModel.isLogged();
   }
 });
-},{"../../tpl/navigation":18}],14:[function(require,module,exports){
+},{"../../tpl/navigation":19}],15:[function(require,module,exports){
 module.exports = {"v":1,"t":[{"t":7,"e":"header","f":[{"t":7,"e":"navigation"}]}," ",{"t":7,"e":"div","a":{"class":"hero"},"f":[{"t":7,"e":"h1","f":["Find Mentors"]}]}," ",{"t":7,"e":"form","a":{"onsubmit":"return false;"},"f":[{"t":4,"n":50,"r":"loading","f":[{"t":7,"e":"p","f":["Loading. Please wait."]}]},{"t":4,"n":51,"f":[{"t":7,"e":"h2","f":["Please set your desired mentor's ladder rank:"]}," ",{"t":7,"e":"input","a":{"type":"text","id":"rank","value":[{"t":2,"r":"rank"}]}}," ",{"t":7,"e":"input","a":{"type":"button","value":"Find"},"v":{"click":"find"}}],"r":"loading"}]}," ",{"t":4,"n":50,"x":{"r":["foundMentors"],"s":"_0!==null"},"f":[{"t":7,"e":"div","a":{"class":"mentor-list"},"f":[{"t":4,"n":52,"r":"foundMentors","f":[{"t":7,"e":"div","a":{"class":"mentor-list-item"},"f":[{"t":7,"e":"h2","f":[{"t":2,"r":"userName"}]}," ",{"t":7,"e":"input","a":{"type":"button","value":"Add as Mentor"},"v":{"click":{"n":"add","d":[{"t":2,"r":"id"}]}}}]}]}]}]},{"t":4,"n":50,"x":{"r":["message"],"s":"_0!==\"\""},"f":[{"t":7,"e":"div","a":{"class":"mentor-list"},"f":[{"t":7,"e":"p","f":[{"t":3,"r":"message"}]}]}]},{"t":7,"e":"appfooter"}]}
-},{}],15:[function(require,module,exports){
-module.exports = {"v":1,"t":[{"t":7,"e":"footer","f":["Version: ",{"t":2,"r":"version"}]}]}
 },{}],16:[function(require,module,exports){
-module.exports = {"v":1,"t":[{"t":7,"e":"header","f":[{"t":7,"e":"navigation"}]}," ",{"t":7,"e":"div","a":{"class":"row"},"f":[{"t":7,"e":"div","a":{"class":"col-md-12"},"f":[{"t":7,"e":"h1","f":[{"t":7,"e":"img","a":{"src":"http://oi60.tinypic.com/evctbk.jpg","class":"img-responsive"}}]}]}]}," ",{"t":7,"e":"div","a":{"class":"page-header"},"f":[{"t":7,"e":"div","a":{"class":"row"},"f":[{"t":7,"e":"div","a":{"class":"col-lg-8 col-md-7 col-sm-6"},"f":[{"t":7,"e":"h1","f":["Welcome to LOLMentors"]}," ",{"t":7,"e":"p","a":{"class":"lead"},"f":["A website designed to help fellow summoners improve"]}]}]}]}," ",{"t":7,"e":"appfooter"}]}
+module.exports = {"v":1,"t":[{"t":7,"e":"footer","f":["Version: ",{"t":2,"r":"version"}]}]}
 },{}],17:[function(require,module,exports){
-module.exports = {"v":1,"t":[{"t":7,"e":"header","f":[{"t":7,"e":"navigation"}]}," ",{"t":7,"e":"div","a":{"class":"row"},"f":[{"t":7,"e":"div","a":{"class":"col-md-12"},"f":[{"t":7,"e":"h1","f":[{"t":7,"e":"img","a":{"src":"http://oi57.tinypic.com/eimfs3.jpg","class":"img-responsive"}}]}]}]}," ",{"t":7,"e":"div","a":{"class":"page-header"},"f":[{"t":7,"e":"h1","f":["Login"]}]}," ",{"t":7,"e":"div","a":{"class":"row"},"f":[{"t":7,"e":"div","a":{"class":"col-lg-6"},"f":[{"t":7,"e":"div","a":{"class":"well bs-component"},"f":[{"t":7,"e":"form","a":{"class":"form-horizontal"},"f":[{"t":7,"e":"fieldset","f":[{"t":4,"n":50,"x":{"r":["error"],"s":"_0&&_0!=\"\""},"f":[{"t":7,"e":"div","a":{"class":"alert alert-dismissible alert-danger"},"f":[{"t":2,"r":"error"}]}]}," ",{"t":4,"n":50,"x":{"r":["success"],"s":"_0&&_0!=\"\""},"f":[{"t":7,"e":"div","a":{"class":"alert alert-dismissible alert-success"},"f":[{"t":3,"r":"success"}]}]},{"t":4,"n":51,"f":[{"t":7,"e":"legend","f":["Please Enter Your Information"]}," ",{"t":7,"e":"label","a":{"for":"userName","class":"col-lg-2 control-label"},"f":["Username"]}," ",{"t":7,"e":"div","a":{"class":"col-lg-6"},"f":[{"t":7,"e":"input","a":{"type":"text","class":"form-control","id":"userName","value":[{"t":2,"r":"userName"}]}}]}," ",{"t":7,"e":"label","a":{"for":"password","class":"col-lg-2 control-label"},"f":["Password"]}," ",{"t":7,"e":"div","a":{"class":"col-lg-6"},"f":[{"t":7,"e":"input","a":{"type":"password","class":"form-control","id":"password","value":[{"t":2,"r":"password"}]}}]}," ",{"t":7,"e":"br"}," ",{"t":7,"e":"input","a":{"type":"button","class":"btn btn-primary","value":"Login"},"v":{"click":"login"}}],"x":{"r":["success"],"s":"_0&&_0!=\"\""}}]}]}]}]}]}]}
+module.exports = {"v":1,"t":[{"t":7,"e":"header","f":[{"t":7,"e":"navigation"}]}," ",{"t":7,"e":"div","a":{"class":"row"},"f":[{"t":7,"e":"div","a":{"class":"col-md-12"},"f":[{"t":7,"e":"h1","f":[{"t":7,"e":"img","a":{"src":"http://oi60.tinypic.com/evctbk.jpg","class":"img-responsive"}}]}]}]}," ",{"t":7,"e":"div","a":{"class":"page-header"},"f":[{"t":7,"e":"div","a":{"class":"row"},"f":[{"t":7,"e":"div","a":{"class":"col-lg-8 col-md-7 col-sm-6"},"f":[{"t":7,"e":"h1","f":["Welcome to LOLMentors"]}," ",{"t":7,"e":"p","a":{"class":"lead"},"f":["A website designed to help fellow summoners improve"]}]}]}]}," ",{"t":7,"e":"appfooter"}]}
 },{}],18:[function(require,module,exports){
-module.exports = {"v":1,"t":[{"t":7,"e":"div","a":{"class":"navbar navbar-default navbar-fixed-top"},"f":[{"t":7,"e":"div","a":{"class":"container"},"f":[{"t":7,"e":"div","a":{"class":"navbar-header"},"f":[{"t":7,"e":"a","v":{"click":{"n":"goto","a":"home"}},"a":{"class":"navbar-brand"},"f":["LOLMentors"]}]}," ",{"t":7,"e":"div","a":{"class":"navbar-collapse collapse"},"f":[{"t":7,"e":"ul","a":{"class":"nav navbar-nav"},"f":[{"t":4,"n":50,"x":{"r":["isLogged"],"s":"!_0"},"f":[{"t":7,"e":"li","f":[{"t":7,"e":"a","v":{"click":{"n":"goto","a":"register"}},"f":["Register"]}]}," ",{"t":7,"e":"li","f":[{"t":7,"e":"a","v":{"click":{"n":"goto","a":"login"}},"f":["Login"]}]}]},{"t":4,"n":51,"f":[{"t":7,"e":"li","f":[{"t":7,"e":"a","v":{"click":{"n":"goto","a":"profile"}},"f":["Profile"]}]}," ",{"t":7,"e":"li","f":[{"t":7,"e":"a","v":{"click":{"n":"goto","a":"find-mentors"}},"f":["Find Mentors"]}]}," ",{"t":7,"e":"li","a":{"class":"right"},"f":[{"t":7,"e":"a","v":{"click":{"n":"goto","a":"logout"}},"f":["Logout"]}]}],"x":{"r":["isLogged"],"s":"!_0"}}]}]}]}]}]}
+module.exports = {"v":1,"t":[{"t":7,"e":"header","f":[{"t":7,"e":"navigation"}]}," ",{"t":7,"e":"div","a":{"class":"row"},"f":[{"t":7,"e":"div","a":{"class":"col-md-12"},"f":[{"t":7,"e":"h1","f":[{"t":7,"e":"img","a":{"src":"http://oi57.tinypic.com/eimfs3.jpg","class":"img-responsive"}}]}]}]}," ",{"t":7,"e":"div","a":{"class":"page-header"},"f":[{"t":7,"e":"h1","f":["Login"]}]}," ",{"t":7,"e":"div","a":{"class":"row"},"f":[{"t":7,"e":"div","a":{"class":"col-lg-6"},"f":[{"t":7,"e":"div","a":{"class":"well bs-component"},"f":[{"t":7,"e":"form","a":{"class":"form-horizontal"},"f":[{"t":7,"e":"fieldset","f":[{"t":4,"n":50,"x":{"r":["error"],"s":"_0&&_0!=\"\""},"f":[{"t":7,"e":"div","a":{"class":"alert alert-dismissible alert-danger"},"f":[{"t":2,"r":"error"}]}]}," ",{"t":4,"n":50,"x":{"r":["success"],"s":"_0&&_0!=\"\""},"f":[{"t":7,"e":"div","a":{"class":"alert alert-dismissible alert-success"},"f":[{"t":3,"r":"success"}]}]},{"t":4,"n":51,"f":[{"t":7,"e":"legend","f":["Please Enter Your Information"]}," ",{"t":7,"e":"label","a":{"for":"userName","class":"col-lg-2 control-label"},"f":["Username"]}," ",{"t":7,"e":"div","a":{"class":"col-lg-6"},"f":[{"t":7,"e":"input","a":{"type":"text","class":"form-control","id":"userName","value":[{"t":2,"r":"userName"}]}}]}," ",{"t":7,"e":"label","a":{"for":"password","class":"col-lg-2 control-label"},"f":["Password"]}," ",{"t":7,"e":"div","a":{"class":"col-lg-6"},"f":[{"t":7,"e":"input","a":{"type":"password","class":"form-control","id":"password","value":[{"t":2,"r":"password"}]}}]}," ",{"t":7,"e":"br"}," ",{"t":7,"e":"input","a":{"type":"button","class":"btn btn-primary","value":"Login"},"v":{"click":"login"}}],"x":{"r":["success"],"s":"_0&&_0!=\"\""}}]}]}]}]}]}]}
 },{}],19:[function(require,module,exports){
-module.exports = {"v":1,"t":[{"t":7,"e":"header","f":[{"t":7,"e":"navigation"}]}," ",{"t":7,"e":"div","a":{"class":"hero"},"f":[{"t":7,"e":"h1","f":["Profile"]}]}," ",{"t":7,"e":"form","f":[{"t":4,"n":50,"x":{"r":["error"],"s":"_0&&_0!=\"\""},"f":[{"t":7,"e":"div","a":{"class":"error"},"f":[{"t":3,"r":"error"}]}]}," ",{"t":4,"n":50,"x":{"r":["success"],"s":"_0&&_0!=\"\""},"f":[{"t":7,"e":"div","a":{"class":"success"},"f":[{"t":3,"r":"success"}]}]}," ",{"t":7,"e":"label","a":{"for":"email"},"f":["E-mail"]}," ",{"t":7,"e":"input","a":{"type":"text","id":"email","value":[{"t":2,"r":"email"}]}}," ",{"t":7,"e":"label","a":{"for":"ingame-name"},"f":["In-Game name"]}," ",{"t":7,"e":"input","a":{"type":"text","id":"ingame-name","value":[{"t":2,"r":"ingameName"}]}}," ",{"t":7,"e":"label","a":{"for":"rank"},"f":["Ladder Rank"]}," ",{"t":7,"e":"input","a":{"type":"text","id":"rank","value":[{"t":2,"r":"rank"}]}}," ",{"t":7,"e":"label","a":{"for":"position"},"f":["Favourite Position"]}," ",{"t":7,"e":"input","a":{"type":"text","id":"position","value":[{"t":2,"r":"position"}]}}," ",{"t":7,"e":"label","a":{"for":"password"},"f":["Change password"]}," ",{"t":7,"e":"input","a":{"type":"password","id":"password","value":[{"t":2,"r":"password"}]}}," ",{"t":7,"e":"input","a":{"type":"button","value":"update"},"v":{"click":"updateProfile"}}," ",{"t":7,"e":"input","a":{"type":"button","value":"delete account","class":"right attention"},"v":{"click":"deleteProfile"}}]}," ",{"t":7,"e":"appfooter"}]}
+module.exports = {"v":1,"t":[{"t":7,"e":"div","a":{"class":"navbar navbar-default navbar-fixed-top"},"f":[{"t":7,"e":"div","a":{"class":"container"},"f":[{"t":7,"e":"div","a":{"class":"navbar-header"},"f":[{"t":7,"e":"a","v":{"click":{"n":"goto","a":"home"}},"a":{"class":"navbar-brand"},"f":["LOLMentors"]}]}," ",{"t":7,"e":"div","a":{"class":"navbar-collapse collapse"},"f":[{"t":7,"e":"ul","a":{"class":"nav navbar-nav"},"f":[{"t":4,"n":50,"x":{"r":["isLogged"],"s":"!_0"},"f":[{"t":7,"e":"li","f":[{"t":7,"e":"a","v":{"click":{"n":"goto","a":"register"}},"f":["Register"]}]}," ",{"t":7,"e":"li","f":[{"t":7,"e":"a","v":{"click":{"n":"goto","a":"login"}},"f":["Login"]}]}]},{"t":4,"n":51,"f":[{"t":7,"e":"li","f":[{"t":7,"e":"a","v":{"click":{"n":"goto","a":"profile"}},"f":["Profile"]}]}," ",{"t":7,"e":"li","f":[{"t":7,"e":"a","v":{"click":{"n":"goto","a":"find-mentors"}},"f":["Find Mentors"]}]}," ",{"t":7,"e":"li","a":{"class":"right"},"f":[{"t":7,"e":"a","v":{"click":{"n":"goto","a":"logout"}},"f":["Logout"]}]}],"x":{"r":["isLogged"],"s":"!_0"}}]}]}]}]}]}
 },{}],20:[function(require,module,exports){
+module.exports = {"v":1,"t":[{"t":7,"e":"header","f":[{"t":7,"e":"navigation"}]}," ",{"t":7,"e":"div","a":{"class":"hero"},"f":[{"t":7,"e":"h1","f":["Profile"]}]}," ",{"t":7,"e":"form","f":[{"t":4,"n":50,"x":{"r":["error"],"s":"_0&&_0!=\"\""},"f":[{"t":7,"e":"div","a":{"class":"error"},"f":[{"t":3,"r":"error"}]}]}," ",{"t":4,"n":50,"x":{"r":["success"],"s":"_0&&_0!=\"\""},"f":[{"t":7,"e":"div","a":{"class":"success"},"f":[{"t":3,"r":"success"}]}]}," ",{"t":7,"e":"label","a":{"for":"email"},"f":["E-mail"]}," ",{"t":7,"e":"input","a":{"type":"text","id":"email","value":[{"t":2,"r":"email"}]}}," ",{"t":7,"e":"label","a":{"for":"ingame-name"},"f":["In-Game name"]}," ",{"t":7,"e":"input","a":{"type":"text","id":"ingame-name","value":[{"t":2,"r":"ingameName"}]}}," ",{"t":7,"e":"label","a":{"for":"rank"},"f":["Ladder Rank"]}," ",{"t":7,"e":"input","a":{"type":"text","id":"rank","value":[{"t":2,"r":"rank"}]}}," ",{"t":7,"e":"label","a":{"for":"position"},"f":["Favourite Position"]}," ",{"t":7,"e":"input","a":{"type":"text","id":"position","value":[{"t":2,"r":"position"}]}}," ",{"t":7,"e":"label","a":{"for":"password"},"f":["Change password"]}," ",{"t":7,"e":"input","a":{"type":"password","id":"password","value":[{"t":2,"r":"password"}]}}," ",{"t":7,"e":"input","a":{"type":"button","value":"update"},"v":{"click":"updateProfile"}}," ",{"t":7,"e":"input","a":{"type":"button","value":"delete account","class":"right attention"},"v":{"click":"deleteProfile"}}]}," ",{"t":7,"e":"appfooter"}]}
+},{}],21:[function(require,module,exports){
 module.exports = {"v":1,"t":[{"t":7,"e":"header","f":[{"t":7,"e":"navigation"}]}," ",{"t":7,"e":"div","a":{"class":"row"},"f":[{"t":7,"e":"div","a":{"class":"col-md-12"},"f":[{"t":7,"e":"h1","f":[{"t":7,"e":"img","a":{"src":"http://oi57.tinypic.com/eimfs3.jpg","class":"img-responsive"}}]}]}]}," ",{"t":7,"e":"div","a":{"class":"page-header"},"f":[{"t":7,"e":"h1","f":["Register"]}]}," ",{"t":7,"e":"div","a":{"class":"row"},"f":[{"t":7,"e":"div","a":{"class":"col-lg-6"},"f":[{"t":7,"e":"div","a":{"class":"well bs-component"},"f":[{"t":7,"e":"form","a":{"class":"form-horizontal"},"f":[{"t":7,"e":"fieldset","f":[{"t":4,"n":50,"x":{"r":["error"],"s":"_0&&_0!=\"\""},"f":[{"t":7,"e":"div","a":{"class":"alert alert-dismissible alert-danger"},"f":[{"t":2,"r":"error"}]}]}," ",{"t":4,"n":50,"x":{"r":["success"],"s":"_0&&_0!=\"\""},"f":[{"t":7,"e":"div","a":{"class":"alert alert-dismissible alert-success"},"f":[{"t":3,"r":"success"}]}]},{"t":4,"n":51,"f":[{"t":7,"e":"legend","f":["Please Enter Your Information"]}," ",{"t":7,"e":"label","a":{"for":"userName","class":"col-lg-2 control-label"},"f":["Username"]}," ",{"t":7,"e":"div","a":{"class":"col-lg-6"},"f":[{"t":7,"e":"input","a":{"type":"text","class":"form-control","id":"userName","value":[{"t":2,"r":"userName"}]}}]}," ",{"t":7,"e":"label","a":{"for":"ingameName","class":"col-lg-2 control-label"},"f":["In-game name"]}," ",{"t":7,"e":"div","a":{"class":"col-lg-6"},"f":[{"t":7,"e":"input","a":{"type":"text","class":"form-control","id":"ingameName","value":[{"t":2,"r":"ingameName"}]}}]}," ",{"t":7,"e":"label","a":{"for":"rank","class":"col-lg-2 control-label"},"f":["Ladder Rank"]}," ",{"t":7,"e":"div","a":{"class":"col-lg-6"},"f":[{"t":7,"e":"input","a":{"type":"text","class":"form-control","id":"rank","value":[{"t":2,"r":"rank"}]}}]}," ",{"t":7,"e":"label","a":{"for":"position","class":"col-lg-2 control-label"},"f":["Favourite Position"]}," ",{"t":7,"e":"div","a":{"class":"col-lg-6"},"f":[{"t":7,"e":"input","a":{"type":"text","class":"form-control","id":"position","value":[{"t":2,"r":"position"}]}}]}," ",{"t":7,"e":"label","a":{"for":"email","class":"col-lg-2 control-label"},"f":["Email"]}," ",{"t":7,"e":"div","a":{"class":"col-lg-6"},"f":[{"t":7,"e":"input","a":{"type":"text","class":"form-control","id":"email","value":[{"t":2,"r":"email"}]}}]}," ",{"t":7,"e":"label","a":{"for":"password","class":"col-lg-2 control-label"},"f":["Password"]}," ",{"t":7,"e":"div","a":{"class":"col-lg-6"},"f":[{"t":7,"e":"input","a":{"type":"password","class":"form-control","id":"password","value":[{"t":2,"r":"password"}]}}]}," ",{"t":7,"e":"br"}," ",{"t":7,"e":"input","a":{"type":"button","class":"btn btn-primary","value":"Register"},"v":{"click":"register"}}],"x":{"r":["success"],"s":"_0&&_0!=\"\""}}]}]}]}]}]}]}
 },{}]},{},[6])
