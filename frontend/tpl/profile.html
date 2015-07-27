@@ -1,30 +1,43 @@
 <header>
   <navigation></navigation>
 </header>
-<div class="hero">
-  <h1>Profile</h1>
+<div class="row">
+    <div class="col-md-12">
+        <h1><img src="http://oi62.tinypic.com/24npvgi.jpg" class="img-responsive"></h1>
+    </div>
 </div>
-<form>
-  {{#if error && error != ''}}
-    <div class="error">{{{error}}}</div>
-  {{/if}}
-  {{#if success && success != ''}}
-    <div class="success">{{{success}}}</div>
-  {{/if}}
-
-  <label for="email">E-mail</label>
-  <input type="text" id="email" value="{{email}}"/>
-  <label for="ingame-name">In-Game name</label>
-  <input type="text" id="ingame-name" value="{{ingameName}}" />
-  <label for="rank">Ladder Rank</label>
-  <input type="text" id="rank" value="{{rank}}" />
-  <label for="position">Favourite Position</label>
-  <input type="text" id="position" value="{{position}}" />
-  <label for="password">Change password</label>
-  <input type="password" id="password" value="{{password}}" />
-
-  <input type="button" value="update" on-click="updateProfile" />
-  <input type="button" value="delete account" on-click="deleteProfile" class="right attention"/>
-
-</form>
+<div class="page-header">
+    <h1>Profile</h1>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="well bs-component">
+      <form class="form-horizontal">
+        <fieldset>
+          {{#if error && error != ''}}
+            <div class="alert alert-dismissible alert-danger">{{error}}</div>
+          {{/if}}
+          {{#if success && success != ''}}
+            <div class="alert alert-dismissible alert-success">{{{success}}}</div>
+          {{else}}
+            <legend>Welcome {{userName}}</legend>
+            <label for="email" class="control-label">E-mail</label>
+            <input type="text" class="form-control" id="email" value="{{email}}"/>
+            <label for="ingame-name" class="control-label">In-Game name</label>
+            <input type="text" class="form-control" id="ingame-name" value="{{ingameName}}" />
+            <label for="rank" class="control-label">Ladder Rank</label>
+            <input type="text" class="form-control" id="rank" value="{{rank}}" />
+            <label for="position" class="control-label">Favourite Position</label>
+            <input type="text" class="form-control" id="position" value="{{position}}" />
+            <label for="password" class="control-label">Change password</label>
+            <input type="password" class="form-control" id="password" value="{{password}}" />
+            <br />
+            <input type="button" class="btn btn-primary" value="Update" on-click="updateProfile" />
+            <input type="button" class="btn btn-primary" value="Delete account" on-click="deleteProfile"/>
+          {{/if}}
+          </fieldset>
+        </form>
+      </div>
+    </div>
+</div>
 <appfooter />
