@@ -199,7 +199,8 @@ Router
               {
                 $or: [
                   { rank : regExp },
-//                  { userName: regExp }
+                  { userName: regExp },
+                  { position: regExp }
                 ]
               },
               { userName: { $nin: excludeCurrent } },
@@ -211,8 +212,8 @@ Router
             foundMentors.push({
               id: result[i]._id,
               userName: result[i].userName,
-//              rank: result[i].rank,
-//              position: result[i].position
+              rank: result[i].rank,
+              position: result[i].position
             });
           };
           response({

@@ -19,13 +19,13 @@ module.exports = Ractive.extend({
     this.on('find', function(e) {
       self.set('loading', true);
       self.set('message', '');
-      var searchTarget = this.get('rank');
+      var searchTarget = this.get('inputCri');
       model.find(searchTarget, function(err, res) {
         if (res.mentors && res.mentors.length > 0){
           self.set('foundMentors', res.mentors);
         } else {
           self.set('foundMentors', null);
-            self.set('message', 'Sorry, there are no users in that rank');
+            self.set('message', 'Sorry, none of the users satisfy that criteria');
         }
         self.set('loading', false);
       });

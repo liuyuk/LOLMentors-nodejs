@@ -13,8 +13,8 @@
     {{#if loading}}
       <p>Loading. Please wait.</p>
     {{else}}
-      <h4>Please set your mentor's ladder rank:</h4>
-      <input type="text" class="form-control" id="rank" value="{{rank}}" />
+      <h4>Please set your desired mentor's username, position, or ladder rank:</h4>
+      <input type="text" class="form-control" id="inputCri" value="{{inputCri}}" />
       <br />
       <input type="button" class="btn btn-primary" value="Find" on-click="find" />
     {{/if}}
@@ -28,7 +28,7 @@
             <br />
             <div class="row">
               <div class="col-sm-8 col-md-8 col-lg-8">
-                <h4>{{userName}}</h4>
+                <h4>{{userName}} {{rank}} {{position}}</h4>
               </div>
               <div class="col-sm-3 col-md-3 col-lg-3">
                 <input type="button" class="btn btn-primary btn-sm" value="Add as Mentor" on-click="add:{{id}}" />
