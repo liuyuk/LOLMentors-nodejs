@@ -1,11 +1,17 @@
+var Mentors = require('../models/Mentors');
+
 module.exports = Ractive.extend({
   template: require('../../tpl/profile'),
   components: {
     navigation: require('../views/Navigation'),
     appfooter: require('../views/Footer')
   },
+  data: {
+    mentors: []
+  },
   onrender: function() {
     var self = this;
+    var mentors = new Mentors();
       
     this.set(userModel.get('value'));
     this.on('updateProfile', function() {
@@ -31,6 +37,10 @@ module.exports = Ractive.extend({
           window.location.href = '/';
         });
       }
-    })
+    });
+    
+    mentors.fetch(function(err, result) {
+      self.set('mentors', result.mentors);
+    });
   }
 });

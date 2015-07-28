@@ -269,6 +269,33 @@ Router
     error('This method is only accessible when logged in.', res);
   }
 }) 
+.add('api/mentors', function(req, res) {
+  if(req.session && req.session.user) {
+    getUser(function(user) {
+      if(!user.mentors || user.mentors.length === 0) {
+        return response({ mentors: [] }, res);
+      }
+      user.mentors.forEach(function(value, index, arr) {
+        arr[index] = ObjectId(value);
+      });
+      getDatabaseConnection(function(db) {
+        var collection = db.collection('users');
+        collection.find({
+          _id: { $in: user.mentors }
+        }).toArray(function(err, result) {
+          result.forEach(function(value, index, arr) {
+            arr[index].id = value.id;
+          });
+          response({
+            mentors: result
+          }, res);
+        });
+      });
+    }, req, res);
+  } else {
+    error('This method is only accessible when logged in.', res);
+  }
+})
 .add(function(req, res) {
   response({
     success: true

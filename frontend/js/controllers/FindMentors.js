@@ -25,7 +25,7 @@ module.exports = Ractive.extend({
           self.set('foundMentors', res.mentors);
         } else {
           self.set('foundMentors', null);
-            self.set('message', 'Sorry, none of the users satisfy that criteria');
+            self.set('message', 'Sorry, none of the users satisfy that criteria.');
         }
         self.set('loading', false);
       });
@@ -36,7 +36,7 @@ module.exports = Ractive.extend({
       model.add(id, function(err, res) {
         self.set('foundMentors', null);
         if(err) {
-          self.set('message', 'Sorry, cannot add that mentor')
+          self.set('message', 'Sorry, cannot add that mentor.')
         } else if (res.success === 'OK') {
           self.set('message', 'Successfully added that mentor!');
         }
