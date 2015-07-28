@@ -6,6 +6,7 @@ module.exports = Ractive.extend({
   },
   onrender: function() {
     var self = this;
+      
     this.set(userModel.get('value'));
     this.on('updateProfile', function() {
       userModel.set('value.email', this.get('email'));

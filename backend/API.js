@@ -1,4 +1,5 @@
 var sha1 = require('sha1');
+var ObjectId = require('mongodb').ObjectID;
 
 var response = function(result, res) {
   res.writeHead(200, {'Content-Type': 'application/json'});
@@ -235,6 +236,39 @@ Router
     error('This method is only accessible when logged in.', res);
   }
 })
+.add('api/mentors/add', function(req, res) {
+  if (req.session && req.session.user) {
+    if (req.method === 'POST') {
+      var mentorID;
+      var updateUser = function(db, mentorID) {
+        var collection = db.collection('users');
+          collection.update(
+            { userName: req.session.user.userName },
+            { $push: { mentors: mentorID} },
+            updateMentorship
+          );
+      };
+      var updateMentorship = function(err, result) {
+        if(err) {
+          error('Error, could not update mentorship status', res);
+        } else {
+          response({
+            success: 'OK'
+          }, res);
+        }
+      };
+      processPOSTRequest(req, function(data) {
+        getDatabaseConnection(function(db) {
+          updateUser(db, data.id);
+        });
+      });
+    } else {
+      error('Invalid POST request.', res);
+    }
+  } else {
+    error('This method is only accessible when logged in.', res);
+  }
+}) 
 .add(function(req, res) {
   response({
     success: true

@@ -30,5 +30,18 @@ module.exports = Ractive.extend({
         self.set('loading', false);
       });
     });
+      
+    this.on('add', function(e, id) {
+      self.set('loading', true);
+      model.add(id, function(err, res) {
+        self.set('foundMentors', null);
+        if(err) {
+          self.set('message', 'Sorry, cannot add that mentor')
+        } else if (res.success === 'OK') {
+          self.set('message', 'Successfully added that mentor!');
+        }
+        self.set('loading', false);
+      });
+    });
   }
 });

@@ -15,7 +15,7 @@ Router
 
 var checkSession = function(req, res) {
   session({
-    keys: ['nodejs-by-example']
+    keys: ['LOLMentors']
   })(req, res, function() {
     process(req, res);
   });
