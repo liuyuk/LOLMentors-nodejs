@@ -1,13 +1,13 @@
 {
-  "name": "lolmentors",
+  "name": "nodejs-by-example",
   "version": "0.0.1",
-  "description": "LOLMentors",
+  "description": "Node.js by example",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
     "cookie-session": "1.1.0",
-    "gulp": "3.9.0",
+    "gulp": "3.8.8",
     "gulp-browserify": "0.5.0",
     "gulp-concat": "2.4.1",
     "gulp-less": "1.3.6",
