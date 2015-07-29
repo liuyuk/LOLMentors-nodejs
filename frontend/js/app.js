@@ -4,6 +4,7 @@ var Register = require('./controllers/Register');
 var Login = require('./controllers/Login');
 var Profile = require('./controllers/Profile');
 var FindMentors = require('./controllers/FindMentors');
+var Posts = require('./controllers/Posts')
 var UserModel = require('./models/User');
 var currentPage;
 var body;
@@ -52,6 +53,14 @@ window.onload = function() {
     .add('find-mentors', function() {
       if(userModel.isLogged()) {
         var p = new FindMentors();
+        showPage(p);
+      } else {
+        Router.navigate('login');
+      }
+    })
+    .add('posts', function() {
+      if(userModel.isLogged()) {
+        var p = new Posts();
         showPage(p);
       } else {
         Router.navigate('login');
