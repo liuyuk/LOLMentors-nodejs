@@ -3,7 +3,7 @@
 </header>
 <div class="row">
     <div class="col-md-12">
-        <h1><img src="http://oi62.tinypic.com/24npvgi.jpg" class="img-responsive"></h1>
+        <h1><img src="http://oi59.tinypic.com/2m5h2dx.jpg" class="img-responsive"></h1>
     </div>
 </div>
 <div class="page-header">
@@ -93,8 +93,20 @@
   <div>
     {{#if mentors.length > 0}}
       {{#each mentors:index}}
-        <div>
-          <h4>{{mentors[index].userName}} {{mentors[index].ingameName}}</h4>
+        <div class="bs-component">
+          <div class="jumbotron">
+            <div class="row">
+              <div class="col-sm-4 col-md-4 col-lg-4">
+                <h4>{{mentors[index].userName}} </h4>
+              </div>
+              <div class="col-sm-4 col-md-4 col-lg-4">
+                <h4>IGN: {{mentors[index].ingameName}} </h4>
+              </div>
+              <div class="col-sm-2 col-md-2 col-lg-2">
+                <input type="button" class="btn btn-primary btn-sm" value="ThumbsUp" on-click="thumbsup:{{mentors[index].userName}}" />
+              </div>
+            </div>
+          </div>
         </div>
       {{/each}}
     {{else}}

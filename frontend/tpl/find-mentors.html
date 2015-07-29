@@ -17,28 +17,24 @@
       <input type="text" class="form-control" id="inputCri" value="{{inputCri}}" />
       <br />
       <input type="button" class="btn btn-primary" value="Find" on-click="find" />
+      <br />
     {{/if}}
 </form>
 {{#if foundMentors !== null}}
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="bs-component">
-        {{#each foundMentors}}
-          <div class="junbotron">
-            <br />
-            <div class="row">
-              <div class="col-sm-8 col-md-8 col-lg-8">
-                <h4>{{userName}} {{rank}} {{position}}</h4>
-              </div>
-              <div class="col-sm-3 col-md-3 col-lg-3">
-                <input type="button" class="btn btn-primary btn-sm" value="Add as Mentor" on-click="add:{{id}}" />
-              </div>
-            </div>
+  {{#each foundMentors}}
+    <div class="bs-component">
+      <div class="jumbotron">
+        <div class="row">
+          <div class="col-sm-8 col-md-8 col-lg-8">
+            <h4>{{userName}} {{rank}} {{position}}</h4>
           </div>
-        {{/each}}
+          <div class="col-sm-3 col-md-3 col-lg-3">
+            <input type="button" class="btn btn-primary btn-sm" value="Add as Mentor" on-click="add:{{id}}" />
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  {{/each}}
 {{/if}}
 {{#if message !== ''}}
   <br />
