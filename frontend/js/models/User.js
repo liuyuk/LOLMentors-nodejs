@@ -5,7 +5,6 @@ module.exports = Base.extend({
     url: '/api/user'
   },
   login: function(callback) {
-    var self = this;
     ajax.request({
       url: this.get('url') + '/login',
       method: 'POST',
@@ -23,7 +22,6 @@ module.exports = Base.extend({
     });
   },
   logout: function(callback) {
-    var self = this;
     ajax.request({
       url: this.get('url') + '/logout',
       json: true

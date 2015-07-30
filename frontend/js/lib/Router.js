@@ -1,5 +1,5 @@
 /*
-  Router component which connects the front-end and the back-end.
+  Router component used for front-end back-end communication.
   Source: "Node.js By Example"
 */
 

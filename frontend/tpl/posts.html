@@ -9,7 +9,7 @@
 <div class="page-header">
     <h1>Post a Request</h1>
 </div>
-<div>
+<div class="hero">
   <form enctype="multipart/form-data" method="post">
     <h3>New Request</h3>
       {{#if error && error != ''}}
@@ -22,7 +22,7 @@
       <textarea value="{{title}}"></textarea>
       <label class="control-label">Details</label>
       <textarea value="{{details}}"></textarea>
-      <input type="button" class="btn btn-primary" value="Create" on-click="createPost" />
+      <input type="button" class="btn btn-primary" value="Post" on-click="create" />
   </form>
 </div>
 <appfooter />

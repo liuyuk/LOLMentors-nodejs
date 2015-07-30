@@ -65,7 +65,7 @@ Router
     if(!data.userName || data.userName === '') {
       error('Invalid or missing username.', res);
     } else if(!data.password || data.password === '') {
-      error('Please fill your password.', res);
+      error('Please fill in your password.', res);
     } else {
       getDatabaseConnection(function(db) {
         var collection = db.collection('users');
@@ -108,13 +108,13 @@ Router
     case 'PUT':
       processPOSTRequest(req, function(data) {
         if(!data.email || data.email === '') {
-          error('Please fill your e-mail.', res);
+          error('Please fill in your e-mail.', res);
         } else if(!data.ingameName || data.ingameName === '') {
-          error('Please fill your in-game name.', res);
+          error('Please fill in your in-game name.', res);
         } else if(!data.rank || data.rank === '') {
-          error('Please fill your ladder rank.', res);
+          error('Please fill in your ladder rank.', res);
         } else if(!data.position || data.position === '') {
-          error('Please fill your favourite position.', res);
+          error('Please fill in your favourite position.', res);
         } else {
           getDatabaseConnection(function(db) {
             var collection = db.collection('users');
@@ -145,9 +145,9 @@ Router
     case 'POST':
       processPOSTRequest(req, function(data) {
         if(!data.userName || data.userName === '') {
-          error('Please fill your username.', res);
+          error('Please fill in your username.', res);
         } else if(!data.ingameName || data.ingameName === '') {
-          error('Please fill your in-game name.', res);
+          error('Please fill in your in-game name.', res);
         } else if(!data.email || data.email === '') {
           error('Invalid or missing email.', res);
         } else if(!data.password || data.password === '') {
@@ -296,12 +296,54 @@ Router
     error('This method is only accessible when logged in.', res);
   }
 })
+.add('api/posts', function(req, res) {
+  var user;
+  if (req.session && req.session.user) {
+    user = req.session.user;
+  } else {
+    error('This method is only accessible when logged in.', res);
+    return;
+  }
+  switch(req.method) {
+    case 'GET': break;
+    case 'POST':
+        var formidable = require('formidable');
+        var form = new formidable.IncomingForm();
+        form.parse(req, function(err, formData, files) {
+          var data = {
+            title: formData.title,
+            details: formData.details
+          };
+          if (!data.title || data.title === '') {
+            error('Cannot post without a title.', res);
+          } else if (!data.details || data.details === '') {
+            error('Cannot post without some details.', res);
+          } else {
+            var processPost = function() {
+              response({
+                success: 'OK'
+              }, res);
+            }
+            getDatabaseConnection(function(db) {
+              getUser(function(user) {
+                var collection = db.collection('posts');
+                data.userId = user._id.toString();
+                data.userName = user.userName;
+                data.date = new Date();
+                collection.insert(data, processPost);
+              }, req, res);
+            });
+          }
+        });
+      break;
+    };
+})
 .add(function(req, res) {
   response({
     success: true
   }, res);
-});
-
+})
+     
 module.exports = function(req, res) {
   Router.check(req.url, [req, res]);
 }

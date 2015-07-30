@@ -44,17 +44,25 @@ module.exports = {
         if(ops.method == 'get') {
           this.xhr.open("GET", ops.url + getParams(ops.data, ops.url), true);
         } else {
-          this.xhr.open(ops.method, ops.url, true);
-          this.setHeaders({
-            'X-Requested-With': 'XMLHttpRequest',
-            'Content-type': 'application/x-www-form-urlencoded'
-          });
+          if (ops.formData) {
+            this.xhr.open(ops.method, ops.url);
+          } else {
+            this.xhr.open(ops.method, ops.url, true);
+            this.setHeaders({
+              'X-Requested-With': 'XMLHttpRequest',
+              'Content-type': 'application/x-www-form-urlencoded'
+            });
+          }
         }
         if(ops.headers && typeof ops.headers == 'object') {
           this.setHeaders(ops.headers);
         }       
-        setTimeout(function() { 
+        setTimeout(function() {
+          if (ops.formData) {
+            self.xhr.send(ops.formData);
+          } else {
           ops.method == 'get' ? self.xhr.send() : self.xhr.send(getParams(ops.data)); 
+          }
         }, 20);
         return this;
       },

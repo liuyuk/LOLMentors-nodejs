@@ -4,7 +4,7 @@ var Register = require('./controllers/Register');
 var Login = require('./controllers/Login');
 var Profile = require('./controllers/Profile');
 var FindMentors = require('./controllers/FindMentors');
-var Posts = require('./controllers/Posts')
+var Posts = require('./controllers/Posts');
 var UserModel = require('./models/User');
 var currentPage;
 var body;
