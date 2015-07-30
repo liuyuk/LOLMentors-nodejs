@@ -1,3 +1,8 @@
+/*
+  Ajax library used for asynchronous client/server interations.
+  Source: "Node.js By Example"
+*/
+
 module.exports = {
   request: function(ops) {
     if(typeof ops == 'string') ops = { url: ops };

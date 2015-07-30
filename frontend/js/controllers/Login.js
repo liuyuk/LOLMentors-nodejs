@@ -1,3 +1,10 @@
+/*
+  Controller module of the login page.
+  Receives userName and password values
+  from the view component, and sends them
+  to the model component.
+*/
+
 module.exports = Ractive.extend({
   template: require('../../tpl/login'),
   components: {

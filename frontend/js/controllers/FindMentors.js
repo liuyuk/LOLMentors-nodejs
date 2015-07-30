@@ -1,3 +1,9 @@
+/*
+  Controller module of the Find Mentors Page
+  handles "find" and "add" requests sent
+  from the view module.
+*/
+
 var Mentors = require('../models/Mentors');
 
 module.exports = Ractive.extend({

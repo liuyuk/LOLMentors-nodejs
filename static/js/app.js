@@ -1,4 +1,10 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+/*
+  Controller module of the Find Mentors Page
+  handles "find" and "add" requests sent
+  from the view module.
+*/
+
 var Mentors = require('../models/Mentors');
 
 module.exports = Ractive.extend({
@@ -47,17 +53,26 @@ module.exports = Ractive.extend({
   }
 });
 },{"../../tpl/find-mentors":16,"../models/Mentors":11,"../views/Footer":14,"../views/Navigation":15}],2:[function(require,module,exports){
+/*
+  Controller module of the home page.
+*/
+
 module.exports = Ractive.extend({
   template: require('../../tpl/home'),
   components: {
     navigation: require('../views/Navigation'),
     appfooter: require('../views/Footer')
   },
-  onrender: function() {
-    
-  }
+  onrender: function() {}
 });
 },{"../../tpl/home":18,"../views/Footer":14,"../views/Navigation":15}],3:[function(require,module,exports){
+/*
+  Controller module of the login page.
+  Receives userName and password values
+  from the view component, and sends them
+  to the model component.
+*/
+
 module.exports = Ractive.extend({
   template: require('../../tpl/login'),
   components: {
@@ -91,6 +106,12 @@ module.exports = Ractive.extend({
   onrender: function() {}
 });
 },{"../../tpl/posts":21,"../views/Footer":14,"../views/Navigation":15}],5:[function(require,module,exports){
+/*
+  Controller module of the profile page.
+  Updates the attributess of the user and
+  displays a list of the user's mentors/mentees.
+*/
+
 var Mentors = require('../models/Mentors');
 
 module.exports = Ractive.extend({
@@ -138,6 +159,12 @@ module.exports = Ractive.extend({
   }
 });
 },{"../../tpl/profile":22,"../models/Mentors":11,"../views/Footer":14,"../views/Navigation":15}],6:[function(require,module,exports){
+/*
+  Controller module of the register page.
+  Receives values from the register view,
+  and sets the user's model component.
+*/
+
 module.exports = Ractive.extend({
   template: require('../../tpl/register'),
   components: {
@@ -242,6 +269,11 @@ window.onload = function() {
 
 }
 },{"./controllers/FindMentors":1,"./controllers/Home":2,"./controllers/Login":3,"./controllers/Posts":4,"./controllers/Profile":5,"./controllers/Register":6,"./lib/Router":9,"./models/User":12}],8:[function(require,module,exports){
+/*
+  Ajax library used for asynchronous client/server interations.
+  Source: "Node.js By Example"
+*/
+
 module.exports = {
   request: function(ops) {
     if(typeof ops == 'string') ops = { url: ops };
@@ -319,6 +351,11 @@ module.exports = {
   }
 }
 },{}],9:[function(require,module,exports){
+/*
+  Router component which connects the front-end and the back-end.
+  Source: "Node.js By Example"
+*/
+
 module.exports = function() {
   return {
     routes: [],

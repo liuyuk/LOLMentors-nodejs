@@ -1,3 +1,8 @@
+/*
+  Router component which connects the front-end and the back-end.
+  Source: "Node.js By Example"
+*/
+
 module.exports = function() {
   return {
     routes: [],

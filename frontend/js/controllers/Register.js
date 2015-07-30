@@ -1,3 +1,9 @@
+/*
+  Controller module of the register page.
+  Receives values from the register view,
+  and sets the user's model component.
+*/
+
 module.exports = Ractive.extend({
   template: require('../../tpl/register'),
   components: {

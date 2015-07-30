@@ -1,3 +1,9 @@
+/*
+  Controller module of the profile page.
+  Updates the attributess of the user and
+  displays a list of the user's mentors/mentees.
+*/
+
 var Mentors = require('../models/Mentors');
 
 module.exports = Ractive.extend({
