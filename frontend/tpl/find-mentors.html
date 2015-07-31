@@ -1,5 +1,5 @@
 <header>
-  <navigation></navigation>
+    <navigation></navigation>
 </header>
 <div class="row">
     <div class="col-md-12">
@@ -11,36 +11,79 @@
 </div>
 <form class="form-horizontal" onsubmit="return false;">
     {{#if loading}}
-      <p>Loading. Please wait.</p>
+    <p>Loading. Please wait.</p>
     {{else}}
-      <h4>Please provide some information about your mentor/mentee</h4>
-      <p>e.g. Username, Favourite Position, Ladder Rank</p>
-      <input type="text" class="form-control" id="inputCri" value="{{inputCri}}" />
-      <br />
-      <input type="button" class="btn btn-primary" value="Find" on-click="find" />
-      <br />
+    <h4>Please set your desired mentor's username, position, or ladder rank:</h4>
+    <input type="text" class="form-control" id="inputCri" value="{{inputCri}}" />
+    <br />
+    <input type="button" class="btn btn-primary" value="Find" on-click="find" />
+    <br />
     {{/if}}
 </form>
 {{#if foundMentors !== null}}
-  {{#each foundMentors}}
-    <div class="bs-component">
-      <div class="jumbotron">
+{{#each foundMentors}}
+<div class="bs-component">
+    <div class="jumbotron">
         <div class="row">
-          <div class="col-sm-8 col-md-8 col-lg-8">
-            <h4>{{userName}} {{rank}} {{position}}</h4>
-          </div>
-          <div class="col-sm-3 col-md-3 col-lg-3">
-            <input type="button" class="btn btn-primary btn-sm" value="Add as Mentor" on-click="add:{{id}}" />
-          </div>
+            <div class="col-sm-2 col-md-2 col-lg-2 text-center">
+                <h4>{{userName}}</h4>
+            </div>
+            <div class="col-sm-4 col-md-4 col-lg-4  col-centered">
+                {{#if rank === 'Diamond'}}
+                <div><img src="https://d11y3kg0vwf4zk.cloudfront.net/assets/league/diamond_1-fb06638b5b85ad838890236a526c3b94.png" class="img-responsive center-block"></div>
+                {{/if}}
+                {{#if rank === 'Platinum'}}
+                <div><img src="http://lpuboosting.com/img/general/ranks/platinum.png" class="img-responsive center-block"></div>
+                {{/if}}
+                {{#if rank === 'Gold'}}
+                <div><img src="https://d11y3kg0vwf4zk.cloudfront.net/assets/league/gold_1-fb62f7a2caa3c755b9f15f473d4af897.png" class="img-responsive center-block"></div>
+                {{/if}}
+                {{#if rank === 'Silver'}}
+                <div><img src="https://d11y3kg0vwf4zk.cloudfront.net/assets/league/silver_1-43dd69b33ae36e78ff2cc0cabdd5730c.png" class="img-responsive center-block"></div>
+                {{/if}}
+                {{#if rank === 'Bronze'}}
+                <div><img src="http://img2.wikia.nocookie.net/__cb20130928162132/leagueoflegends/images/b/b4/BronzeBadgeSeason2.png" class="img-responsive center-block"></div>
+                {{/if}}
+                {{#if rank === 'Master'}}
+                <div><img src="http://www.newsoflegends.com/wp-content/uploads/2014/08/image-80.png" class="img-responsive center-block"></div>
+                {{/if}}
+                {{#if rank === 'Challenger'}}
+                <div><img src="http://rankedboost.com/file/2014/09/challenger-rewards-lol.png" class="img-responsive center-block"></div>
+                {{/if}}
+            </div>
+            <br>
+            <div class="col-sm-4 col-lg-4 col-md-4  col-centered">
+                {{#if position === 'Top'}}
+                <div><img src="http://img4.wikia.nocookie.net/__cb20140607013217/leagueoflegends/images/thumb/2/2a/Tank_icon.jpg/110px-Tank_icon.jpg" class="img-responsive positionpic center-block"></div>
+                {{/if}}
+                {{#if position === 'Jungle'}}
+                <div><img src="http://img1.wikia.nocookie.net/__cb20140607013311/leagueoflegends/images/thumb/1/10/Fighter_icon.jpg/110px-Fighter_icon.jpg" class="img-responsive positionpic center-block"></div>
+                {{/if}}
+                {{#if position === 'Mid'}}
+                <div><img src="http://img2.wikia.nocookie.net/__cb20140607013101/leagueoflegends/images/thumb/2/2b/Mage_icon.jpg/110px-Mage_icon.jpg" class="img-responsive positionpic center-block"></div>
+                {{/if}}
+                {{#if position === 'ADC'}}
+                <div><img src="http://img1.wikia.nocookie.net/__cb20140607013149/leagueoflegends/images/thumb/0/06/Marksman_icon.jpg/110px-Marksman_icon.jpg" class="img-responsive positionpic center-block"></div>
+                {{/if}}
+                {{#if position === 'Support'}}
+                <div><img src="http://img1.wikia.nocookie.net/__cb20140607013321/leagueoflegends/images/thumb/3/34/Support_icon.jpg/110px-Support_icon.jpg" class="img-responsive positionpic center-block"></div>
+                {{/if}}
+            </div>
+
+            <br>
+
+            <div class="col-sm-2 col-md-2 col-lg-2  text-center">
+                <input type="button" class="btn btn-primary btn-sm" value="Add as Mentor" on-click="add:{{id}}" />
+            </div>
         </div>
-      </div>
     </div>
-  {{/each}}
+</div>
+{{/each}}
 {{/if}}
 {{#if message !== ''}}
-  <br />
-  <div class="alert alert-dismissible alert-success">
+<br />
+<div class="alert alert-dismissible alert-success">
     <p>{{{message}}}</p>
-  </div>
+</div>
 {{/if}}
 <appfooter />
