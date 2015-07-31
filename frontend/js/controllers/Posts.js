@@ -25,5 +25,9 @@ module.exports = Ractive.extend({
         }
       });
     });
+      
+    model.fetch(function(error, result) {
+      self.set('posts', result.posts);
+    });
   }
 });

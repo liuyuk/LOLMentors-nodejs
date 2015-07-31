@@ -291,7 +291,24 @@ Router
     return;
   }
   switch(req.method) {
-    case 'GET': break;
+    case 'GET': 
+      getDatabaseConnection(function(db) {
+        var collection = db.collection('posts');
+        collection.find({
+          $query: { },
+          $orderby: {
+            date: -1
+          }
+        }).toArray(function(err, result) {
+          result.forEach(function(value, index, arr) {
+            arr[index].id = value._id;
+          });
+          response({
+            posts: result
+          }, res);
+        });
+      });
+      break;
     case 'POST':
         var formidable = require('formidable');
         var form = new formidable.IncomingForm();
