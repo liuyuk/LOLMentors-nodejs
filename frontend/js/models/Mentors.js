@@ -1,3 +1,7 @@
+/*
+  Model component for the find-mentor functionality.
+*/
+
 var ajax = require('../lib/Ajax');
 var Base = require('./Base');
 
@@ -5,7 +9,7 @@ module.exports = Base.extend({
   data: {
     url:'/api/mentors'
   },
-  find: function(searchTarget, callback){
+  find: function(searchTarget, cb){
     ajax.request({
       url: this.get('url') + '/find',
       method: 'POST',
@@ -15,13 +19,13 @@ module.exports = Base.extend({
       json: true
     })
     .done(function(result) {
-      callback(null, result);
+      cb(null, result);
     })
     .fail(function(xhr) {
-      callback(JSON.parse(xhr.responseText));
+      cb(JSON.parse(xhr.responseText));
     });
   },
-  add: function(id, callback) {
+  add: function(id, cb) {
     ajax.request({
       url: this.get('url') + '/add',
       method: 'POST',
@@ -31,10 +35,10 @@ module.exports = Base.extend({
       json: true
     })
     .done(function(result) {
-      callback(null, result);
+      cb(null, result);
     })
     .fail(function(xhr) {
-      callback(JSON.parse(xhr.responseText));
+      cb(JSON.parse(xhr.responseText));
     });
   }
 });

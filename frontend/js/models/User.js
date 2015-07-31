@@ -4,7 +4,7 @@ module.exports = Base.extend({
   data: {
     url: '/api/user'
   },
-  login: function(callback) {
+  login: function(cb) {
     ajax.request({
       url: this.get('url') + '/login',
       method: 'POST',
@@ -15,22 +15,22 @@ module.exports = Base.extend({
       json: true
     })
     .done(function(result) {
-      callback(null, result);
+      cb(null, result);
     })
     .fail(function(xhr) {
-      callback(JSON.parse(xhr.responseText));
+      cb(JSON.parse(xhr.responseText));
     });
   },
-  logout: function(callback) {
+  logout: function(cb) {
     ajax.request({
       url: this.get('url') + '/logout',
       json: true
     })
     .done(function(result) {
-      callback(null, result);
+      cb(null, result);
     })
     .fail(function(xhr) {
-      callback(JSON.parse(xhr.responseText));
+      cb(JSON.parse(xhr.responseText));
     });
   },
   isLogged: function() {

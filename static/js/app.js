@@ -14,7 +14,6 @@ module.exports = Ractive.extend({
     appfooter: require('../views/Footer')
   },
   data: {
-    loading: false,
     message: '',
     searchTarget: '',
     foundMentors: null
@@ -24,7 +23,6 @@ module.exports = Ractive.extend({
     var self = this;
       
     this.on('find', function(e) {
-      self.set('loading', true);
       self.set('message', '');
       var searchTarget = this.get('inputCri');
       model.find(searchTarget, function(err, res) {
@@ -34,12 +32,10 @@ module.exports = Ractive.extend({
           self.set('foundMentors', null);
             self.set('message', 'Sorry, none of the users satisfy that criteria.');
         }
-        self.set('loading', false);
       });
     });
       
     this.on('add', function(e, id) {
-      self.set('loading', true);
       model.add(id, function(err, res) {
         self.set('foundMentors', null);
         if(err) {
@@ -47,7 +43,6 @@ module.exports = Ractive.extend({
         } else if (res.success === 'OK') {
           self.set('message', 'Successfully added that mentor!');
         }
-        self.set('loading', false);
       });
     });
   }
@@ -558,7 +553,7 @@ module.exports = Base.extend({
   data: {
     url:'/api/mentors'
   },
-  find: function(searchTarget, callback){
+  find: function(searchTarget, cb){
     ajax.request({
       url: this.get('url') + '/find',
       method: 'POST',
@@ -568,13 +563,13 @@ module.exports = Base.extend({
       json: true
     })
     .done(function(result) {
-      callback(null, result);
+      cb(null, result);
     })
     .fail(function(xhr) {
-      callback(JSON.parse(xhr.responseText));
+      cb(JSON.parse(xhr.responseText));
     });
   },
-  add: function(id, callback) {
+  add: function(id, cb) {
     ajax.request({
       url: this.get('url') + '/add',
       method: 'POST',
@@ -584,10 +579,10 @@ module.exports = Base.extend({
       json: true
     })
     .done(function(result) {
-      callback(null, result);
+      cb(null, result);
     })
     .fail(function(xhr) {
-      callback(JSON.parse(xhr.responseText));
+      cb(JSON.parse(xhr.responseText));
     });
   }
 });
@@ -599,7 +594,7 @@ module.exports = Base.extend({
   data: {
     url:'/api/posts'
   },
-  create: function(formData, callback) {
+  create: function(formData, cb) {
     var self = this;
     ajax.request({
       url: this.get('url'),
@@ -608,10 +603,10 @@ module.exports = Base.extend({
       json: true
     })
     .done(function(result) {
-      callback(null, result);
+      cb(null, result);
     })
     .fail(function(xhr) {
-      callback(JSON.parse(xhr.responseText));
+      cb(JSON.parse(xhr.responseText));
     });
   }
 });
@@ -622,7 +617,7 @@ module.exports = Base.extend({
   data: {
     url: '/api/user'
   },
-  login: function(callback) {
+  login: function(cb) {
     ajax.request({
       url: this.get('url') + '/login',
       method: 'POST',
@@ -633,22 +628,22 @@ module.exports = Base.extend({
       json: true
     })
     .done(function(result) {
-      callback(null, result);
+      cb(null, result);
     })
     .fail(function(xhr) {
-      callback(JSON.parse(xhr.responseText));
+      cb(JSON.parse(xhr.responseText));
     });
   },
-  logout: function(callback) {
+  logout: function(cb) {
     ajax.request({
       url: this.get('url') + '/logout',
       json: true
     })
     .done(function(result) {
-      callback(null, result);
+      cb(null, result);
     })
     .fail(function(xhr) {
-      callback(JSON.parse(xhr.responseText));
+      cb(JSON.parse(xhr.responseText));
     });
   },
   isLogged: function() {

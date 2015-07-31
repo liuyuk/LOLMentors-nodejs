@@ -1,3 +1,8 @@
+/*
+  Common functions used by other models
+  Source: "Node.js By Example"
+*/
+
 var ajax = require('../lib/Ajax');
 module.exports = Ractive.extend({
   data: {

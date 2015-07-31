@@ -13,7 +13,6 @@ module.exports = Ractive.extend({
     appfooter: require('../views/Footer')
   },
   data: {
-    loading: false,
     message: '',
     searchTarget: '',
     foundMentors: null
@@ -23,7 +22,6 @@ module.exports = Ractive.extend({
     var self = this;
       
     this.on('find', function(e) {
-      self.set('loading', true);
       self.set('message', '');
       var searchTarget = this.get('inputCri');
       model.find(searchTarget, function(err, res) {
@@ -33,12 +31,10 @@ module.exports = Ractive.extend({
           self.set('foundMentors', null);
             self.set('message', 'Sorry, none of the users satisfy that criteria.');
         }
-        self.set('loading', false);
       });
     });
       
     this.on('add', function(e, id) {
-      self.set('loading', true);
       model.add(id, function(err, res) {
         self.set('foundMentors', null);
         if(err) {
@@ -46,7 +42,6 @@ module.exports = Ractive.extend({
         } else if (res.success === 'OK') {
           self.set('message', 'Successfully added that mentor!');
         }
-        self.set('loading', false);
       });
     });
   }
