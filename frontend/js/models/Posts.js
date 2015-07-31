@@ -23,5 +23,19 @@ module.exports = Base.extend({
     .fail(function(xhr) {
       cb(JSON.parse(xhr.responseText));
     });
+  },
+  getPost: function(postId, cb) {
+    var self = this;
+    ajax.request({
+      url: this.get('url') + '/' + postId,
+      method: 'GET',
+      json: true
+    })
+    .done(function(result) {
+      cb(null, result);
+    })
+    .fail(function(xhr) {
+      cb(JSON.parse(xhr.responseText));
+    });
   }
 });

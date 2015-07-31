@@ -58,6 +58,18 @@ window.onload = function() {
         Router.navigate('login');
       }
     })
+    .add('posts/:id', function(param) {
+      if(userModel.isLogged()) {
+        var p = new Posts({
+          data: {
+            postId: param.id
+          }
+        });
+        showPage(p);
+      } else {
+        Router.navigate('login');
+      }
+    })
     .add('posts', function() {
       if(userModel.isLogged()) {
         var p = new Posts();

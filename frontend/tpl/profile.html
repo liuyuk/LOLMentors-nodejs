@@ -10,7 +10,7 @@
     <h1>{{{userName}}}'s Profile</h1>
 </div>
 <div class="row">
-  <div class="col-lg-6 col-md-6">
+  <div class="col-lg-4 col-md-4">
     <div class="well bs-component">
       {{#if rank === 'Diamond'}}
         <div><img src="https://d11y3kg0vwf4zk.cloudfront.net/assets/league/diamond_1-fb06638b5b85ad838890236a526c3b94.png" class="img-responsive center-block"></div>
@@ -35,7 +35,7 @@
       {{/if}}
     </div>
   </div>
-  <div class="col-lg-6 col-md-6">
+  <div class="col-lg-4 col-md-4">
     <div class="well bs-component">
       {{#if position === 'Top'}}
         <div><img src="http://img4.wikia.nocookie.net/__cb20140607013217/leagueoflegends/images/thumb/2/2a/Tank_icon.jpg/110px-Tank_icon.jpg" class="img-responsive positionpic center-block"></div>
@@ -52,6 +52,11 @@
       {{#if position === 'Support'}}
         <div><img src="http://img1.wikia.nocookie.net/__cb20140607013321/leagueoflegends/images/thumb/3/34/Support_icon.jpg/110px-Support_icon.jpg" class="img-responsive positionpic center-block"></div>
       {{/if}}
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-4">
+    <div class="well bs-component">
+      <h4>Rating</h4>
     </div>
   </div>
 </div>
@@ -102,7 +107,7 @@
                 <h4>IGN: {{mentors[index].ingameName}} </h4>
               </div>
               <div class="col-sm-2 col-md-2 col-lg-2">
-                <input type="button" class="btn btn-primary btn-sm" value="ThumbsUp" on-click="thumbsup:{{mentors[index].userName}}" />
+                <input type="button" class="btn btn-primary btn-sm" value="Rate" on-click="rate:{{mentors[index].userName}}" />
               </div>
             </div>
           </div>

@@ -10,6 +10,23 @@ module.exports = Ractive.extend({
   onrender: function() {
     var model = new PostModel();
     var self = this;
+      
+    var postId = this.get('postId');
+    if(postId) {
+      model.getPost(postId, function(err, result) {
+        if (!err && result.posts.length > 0) {
+          var post = result.posts[0];
+          self.set('postTitle', post.title);
+          self.set('postDetails', post.details);
+          self.set('postType', post.type);
+          self.set('postUser', post.userName);
+        } else {
+          self.set('postTitle', 'Missing.');
+        }
+      });
+      return;
+    }
+      
     this.on('create', function() {
       var formData = new FormData();
       formData.append("title", this.get('title'));

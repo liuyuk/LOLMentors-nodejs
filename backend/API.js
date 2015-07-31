@@ -202,6 +202,8 @@ Router
             foundMentors.push({
               id: result[i]._id,
               userName: result[i].userName,
+              rank: result[i].rank,
+              position: result[i].position
             });
           };
           response({
@@ -263,6 +265,7 @@ Router
       if(!user.mentors || user.mentors.length === 0) {
         return response({ mentors: [] }, res);
       }
+      disableUpdate = true;
       user.mentors.forEach(function(value, index, arr) {
         arr[index] = ObjectId(value);
       });
@@ -284,6 +287,71 @@ Router
     error('This method is only accessible when logged in.', res);
   }
 })
+.add('api/posts/:id', function(req, res, param) {
+  var user;
+  if (req.session && req.session.user) {
+    user = req.session.user;
+  } else {
+    error('This method is only accessible when logged in.', res);
+    return;
+  }
+  switch(req.method) {
+    case 'GET': 
+      getDatabaseConnection(function(db) {
+        var query = param && param.id ? {
+          _id: ObjectId(param.id)
+        } : {};
+        var collection = db.collection('posts');
+        collection.find({
+          $query: query,
+          $orderby: {
+            date: -1
+          }
+        }).toArray(function(err, result) {
+          result.forEach(function(value, index, arr) {
+            arr[index].id = value._id;
+          });
+          response({
+            posts: result
+          }, res);
+        });
+      });
+      break;
+    case 'POST':
+        var formidable = require('formidable');
+        var form = new formidable.IncomingForm();
+        form.parse(req, function(err, formData, files) {
+          var data = {
+            title: formData.title,
+            details: formData.details,
+            type: formData.type
+          };
+          if (!data.title || data.title === '') {
+            error('Cannot post without a title.', res);
+          } else if (!data.details || data.details === '') {
+            error('Cannot post without some details.', res);
+          } else if (data.type != 'Mentor' && data.type != 'Mentee' && data.type != 'Others') {
+            error('Invalid type, choose from - Mentor, Mentee, or Others', res);
+          } else {
+            var processPost = function() {
+              response({
+                success: 'OK'
+              }, res);
+            }
+            getDatabaseConnection(function(db) {
+              getUser(function(user) {
+                var collection = db.collection('posts');
+                data.userId = user._id.toString();
+                data.userName = user.userName;
+                data.date = new Date();
+                collection.insert(data, processPost);
+              }, req, res);
+            });
+          }
+        });
+      break;
+    };
+})
 .add('api/posts', function(req, res) {
   var user;
   if (req.session && req.session.user) {
@@ -297,7 +365,7 @@ Router
       getDatabaseConnection(function(db) {
         var collection = db.collection('posts');
         collection.find({
-          $query: { },
+          $query: {},
           $orderby: {
             date: -1
           }

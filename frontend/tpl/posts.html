@@ -9,6 +9,43 @@
 <div class="page-header">
     <h1>Post a Request</h1>
 </div>
+{{#if postId}}
+  <div>
+    <div class="bs-component">
+      <div class="jumbotron">
+        <div class="row">
+              <div class="col-sm-4 col-md-4 col-lg-4">
+                <h4>{{postTitle}}</h4>
+              </div>
+              <div class="col-sm-4 col-md-4 col-lg-4 col-lg-offset-8 col-md-offset-8">
+                <h5>Searching For: {{postType}}</h5>
+              </div>
+              <div class="col-sm-4 col-md-4 col-lg-4 col-lg-offset-8 col-md-offset-8">
+                <p>By: {{postUser}}</p>
+              </div>
+        </div>
+        <p><small>{{postDetails}}</small></p>
+      </div>
+    </div>
+  </div>
+  <div class="bs-component">
+  <div class="jumbotron">
+  <form class="form-horizontal" enctype="multipart/form-data" method="post">
+    <legend>New Comment</legend>
+      {{#if error && error != ''}}
+        <div class="alert alert-dismissible alert-danger">{{error}}</div>
+      {{/if}}
+      {{#if success && success != ''}}
+        <div class="alert alert-dismissible alert-success">{{{success}}}</div>
+      {{/if}}
+      <textarea class="form-control" rows="3" value="{{commentDetails}}"></textarea>
+      <br />
+      <input type="button" class="btn btn-primary" value="Post" on-click="createComment" />
+  </form>
+  </div>
+</div>
+  <hr />
+{{else}}
 <div class="bs-component">
   <div class="jumbotron">
   <form class="form-horizontal" enctype="multipart/form-data" method="post">
@@ -56,5 +93,6 @@
     </div>
   </div>
 {{/each}}
+{{/if}}
 </div>
 <appfooter />
