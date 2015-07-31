@@ -1,3 +1,8 @@
+/*
+  Enable the node.js server to initialize.
+  Source: "Node.js By Example"
+*/
+
 var http = require('http');
 var session = require('cookie-session');
 var port = 9000;

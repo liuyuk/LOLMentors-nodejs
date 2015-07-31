@@ -1,3 +1,7 @@
+/*
+  Model component for login/logout functionalities.
+*/
+
 var ajax = require('../lib/Ajax');
 var Base = require('./Base');
 module.exports = Base.extend({

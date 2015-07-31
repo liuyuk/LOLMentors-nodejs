@@ -1,3 +1,8 @@
+/*
+  HTML request handler.
+  Source: "Node.js By Example"
+*/
+
 var fs = require('fs');
 var path = require('path');
 var files = {};

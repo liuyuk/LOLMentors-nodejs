@@ -169,20 +169,6 @@ Router
         }
       });
     break;
-    case 'DELETE':
-      getDatabaseConnection(function(db) {
-        var collection = db.collection('users');
-        collection.remove(
-          { userName: req.session.user.userName },
-          function(err, docs) {
-            delete req.session.user;
-            response({
-              success: 'OK'
-            }, res);
-          }
-        );
-      });
-    break;
   };
 })
 .add('api/mentors/find', function(req, res) {

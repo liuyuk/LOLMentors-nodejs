@@ -1,3 +1,8 @@
+/*
+  View component of the footer.
+  Source: "Node.js By Example"
+*/
+
 var FooterModel = require('../models/Version');
 
 module.exports = Ractive.extend({

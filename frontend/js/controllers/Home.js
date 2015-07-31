@@ -1,5 +1,6 @@
 /*
   Controller module of the home page.
+  Source: "Node.js By Example"
 */
 
 module.exports = Ractive.extend({

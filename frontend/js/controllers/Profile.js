@@ -37,13 +37,6 @@ module.exports = Ractive.extend({
         }
       });
     });
-    this.on('deleteProfile', function() {
-      if(confirm('Are you sure! Your account will be deleted permanently.')) {
-        userModel.del(function() {
-          window.location.href = '/';
-        });
-      }
-    });
     
     mentors.fetch(function(err, result) {
       self.set('mentors', result.mentors);

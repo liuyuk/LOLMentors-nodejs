@@ -1,3 +1,8 @@
+/*
+  Generate main html page.
+  Source: "Node.js By Example"
+*/
+
 var fs = require('fs');
 var html = fs.readFileSync(__dirname + '/tpl/page.html').toString('utf8');
 module.exports = function(req, res) {

@@ -50,6 +50,7 @@ module.exports = Ractive.extend({
 },{"../../tpl/find-mentors":17,"../models/Mentors":11,"../views/Footer":15,"../views/Navigation":16}],2:[function(require,module,exports){
 /*
   Controller module of the home page.
+  Source: "Node.js By Example"
 */
 
 module.exports = Ractive.extend({
@@ -159,13 +160,6 @@ module.exports = Ractive.extend({
           self.set('success', 'Profile updated successfully.');
         }
       });
-    });
-    this.on('deleteProfile', function() {
-      if(confirm('Are you sure! Your account will be deleted permanently.')) {
-        userModel.del(function() {
-          window.location.href = '/';
-        });
-      }
     });
     
     mentors.fetch(function(err, result) {
@@ -445,6 +439,11 @@ module.exports = function() {
   }
 };
 },{}],10:[function(require,module,exports){
+/*
+  Common functions used by other models
+  Source: "Node.js By Example"
+*/
+
 var ajax = require('../lib/Ajax');
 module.exports = Ractive.extend({
   data: {
@@ -511,25 +510,6 @@ module.exports = Ractive.extend({
     });
     return this;
   },
-  del: function(cb) {
-    var self = this;
-    ajax.request({
-      url: self.get('url'),
-      method: 'DELETE',
-      json: true
-    })
-    .done(function(result) {
-      if(cb) {
-        cb(null, result);
-      }
-    })
-    .fail(function(xhr) {
-      if(cb) {
-        cb(JSON.parse(xhr.responseText));
-      }
-    });
-    return this;
-  },
   bindComponent: function(component) {
     if(component) {
       this.observe('value', function(v) {
@@ -546,6 +526,10 @@ module.exports = Ractive.extend({
   }
 });
 },{"../lib/Ajax":8}],11:[function(require,module,exports){
+/*
+  Model component for the find-mentor functionality.
+*/
+
 var ajax = require('../lib/Ajax');
 var Base = require('./Base');
 
@@ -587,6 +571,10 @@ module.exports = Base.extend({
   }
 });
 },{"../lib/Ajax":8,"./Base":10}],12:[function(require,module,exports){
+/*
+  Model component for the post-request functionality.
+*/
+
 var ajax = require('../lib/Ajax');
 var Base = require('./Base');
 
@@ -611,6 +599,10 @@ module.exports = Base.extend({
   }
 });
 },{"../lib/Ajax":8,"./Base":10}],13:[function(require,module,exports){
+/*
+  Model component for login/logout functionalities.
+*/
+
 var ajax = require('../lib/Ajax');
 var Base = require('./Base');
 module.exports = Base.extend({
@@ -651,6 +643,11 @@ module.exports = Base.extend({
   }
 });
 },{"../lib/Ajax":8,"./Base":10}],14:[function(require,module,exports){
+/*
+  Model of the current version of the app.
+  Source: "Node.js By Example"
+*/
+
 var Base = require('./Base');
 module.exports = Base.extend({
   data: {
@@ -658,6 +655,11 @@ module.exports = Base.extend({
   }
 });
 },{"./Base":10}],15:[function(require,module,exports){
+/*
+  View component of the footer.
+  Source: "Node.js By Example"
+*/
+
 var FooterModel = require('../models/Version');
 
 module.exports = Ractive.extend({
@@ -668,6 +670,11 @@ module.exports = Ractive.extend({
   }
 });
 },{"../../tpl/footer":18,"../models/Version":14}],16:[function(require,module,exports){
+/*
+  View component of the navigation bar.
+  Source: "Node.js By Example"
+*/
+
 module.exports = Ractive.extend({
   template: require('../../tpl/navigation'),
   onconstruct: function() {
@@ -687,7 +694,7 @@ module.exports = {"v":1,"t":[{"t":7,"e":"div","a":{"class":"navbar navbar-defaul
 },{}],22:[function(require,module,exports){
 module.exports = {"v":1,"t":[{"t":7,"e":"header","f":[{"t":7,"e":"navigation"}]}," ",{"t":7,"e":"div","a":{"class":"row"},"f":[{"t":7,"e":"div","a":{"class":"col-md-12"},"f":[{"t":7,"e":"h1","f":[{"t":7,"e":"img","a":{"src":"http://oi62.tinypic.com/24npvgi.jpg","class":"img-responsive"}}]}]}]}," ",{"t":7,"e":"div","a":{"class":"page-header"},"f":[{"t":7,"e":"h1","f":["Post a Request"]}]}," ",{"t":7,"e":"div","a":{"class":"hero"},"f":[{"t":7,"e":"form","a":{"enctype":"multipart/form-data","method":"post"},"f":[{"t":7,"e":"h3","f":["New Request"]}," ",{"t":4,"n":50,"x":{"r":["error"],"s":"_0&&_0!=\"\""},"f":[{"t":7,"e":"div","a":{"class":"alert alert-dismissible alert-danger"},"f":[{"t":2,"r":"error"}]}]}," ",{"t":4,"n":50,"x":{"r":["success"],"s":"_0&&_0!=\"\""},"f":[{"t":7,"e":"div","a":{"class":"alert alert-dismissible alert-success"},"f":[{"t":3,"r":"success"}]}]}," ",{"t":7,"e":"label","a":{"class":"control-label"},"f":["Title"]}," ",{"t":7,"e":"textarea","a":{"value":[{"t":2,"r":"title"}]}}," ",{"t":7,"e":"label","a":{"class":"control-label"},"f":["Details"]}," ",{"t":7,"e":"textarea","a":{"value":[{"t":2,"r":"details"}]}}," ",{"t":7,"e":"input","a":{"type":"button","class":"btn btn-primary","value":"Post"},"v":{"click":"create"}}]}]}," ",{"t":7,"e":"appfooter"}]}
 },{}],23:[function(require,module,exports){
-module.exports = {"v":1,"t":[{"t":7,"e":"header","f":[{"t":7,"e":"navigation"}]}," ",{"t":7,"e":"div","a":{"class":"row"},"f":[{"t":7,"e":"div","a":{"class":"col-md-12"},"f":[{"t":7,"e":"h1","f":[{"t":7,"e":"img","a":{"src":"http://oi59.tinypic.com/2m5h2dx.jpg","class":"img-responsive"}}]}]}]}," ",{"t":7,"e":"div","a":{"class":"page-header"},"f":[{"t":7,"e":"h1","f":[{"t":3,"r":"userName"},"'s Profile"]}]}," ",{"t":7,"e":"div","a":{"class":"row"},"f":[{"t":7,"e":"div","a":{"class":"col-lg-6 col-md-6"},"f":[{"t":7,"e":"div","a":{"class":"well bs-component"},"f":[{"t":4,"n":50,"x":{"r":["rank"],"s":"_0===\"Diamond\""},"f":[{"t":7,"e":"div","f":[{"t":7,"e":"img","a":{"src":"https://d11y3kg0vwf4zk.cloudfront.net/assets/league/diamond_1-fb06638b5b85ad838890236a526c3b94.png","class":"img-responsive center-block"}}]}]}," ",{"t":4,"n":50,"x":{"r":["rank"],"s":"_0===\"Platinum\""},"f":[{"t":7,"e":"div","f":[{"t":7,"e":"img","a":{"src":"http://lpuboosting.com/img/general/ranks/platinum.png","class":"img-responsive center-block"}}]}]}," ",{"t":4,"n":50,"x":{"r":["rank"],"s":"_0===\"Gold\""},"f":[{"t":7,"e":"div","f":[{"t":7,"e":"img","a":{"src":"https://d11y3kg0vwf4zk.cloudfront.net/assets/league/gold_1-fb62f7a2caa3c755b9f15f473d4af897.png","class":"img-responsive center-block"}}]}]}," ",{"t":4,"n":50,"x":{"r":["rank"],"s":"_0===\"Silver\""},"f":[{"t":7,"e":"div","f":[{"t":7,"e":"img","a":{"src":"https://d11y3kg0vwf4zk.cloudfront.net/assets/league/silver_1-43dd69b33ae36e78ff2cc0cabdd5730c.png","class":"img-responsive center-block"}}]}]}," ",{"t":4,"n":50,"x":{"r":["rank"],"s":"_0===\"Bronze\""},"f":[{"t":7,"e":"div","f":[{"t":7,"e":"img","a":{"src":"http://img2.wikia.nocookie.net/__cb20130928162132/leagueoflegends/images/b/b4/BronzeBadgeSeason2.png","class":"img-responsive center-block"}}]}]}," ",{"t":4,"n":50,"x":{"r":["rank"],"s":"_0===\"Master\""},"f":[{"t":7,"e":"div","f":[{"t":7,"e":"img","a":{"src":"http://www.newsoflegends.com/wp-content/uploads/2014/08/image-80.png","class":"img-responsive center-block"}}]}]}," ",{"t":4,"n":50,"x":{"r":["rank"],"s":"_0===\"Challenger\""},"f":[{"t":7,"e":"div","f":[{"t":7,"e":"img","a":{"src":"http://rankedboost.com/file/2014/09/challenger-rewards-lol.png","class":"img-responsive center-block"}}]}]}]}]}," ",{"t":7,"e":"div","a":{"class":"col-lg-6 col-md-6"},"f":[{"t":7,"e":"div","a":{"class":"well bs-component"},"f":[{"t":4,"n":50,"x":{"r":["position"],"s":"_0===\"Top\""},"f":[{"t":7,"e":"div","f":[{"t":7,"e":"img","a":{"src":"http://img4.wikia.nocookie.net/__cb20140607013217/leagueoflegends/images/thumb/2/2a/Tank_icon.jpg/110px-Tank_icon.jpg","class":"img-responsive positionpic center-block"}}]}]}," ",{"t":4,"n":50,"x":{"r":["position"],"s":"_0===\"Jungle\""},"f":[{"t":7,"e":"div","f":[{"t":7,"e":"img","a":{"src":"http://img1.wikia.nocookie.net/__cb20140607013311/leagueoflegends/images/thumb/1/10/Fighter_icon.jpg/110px-Fighter_icon.jpg","class":"img-responsive positionpic center-block"}}]}]}," ",{"t":4,"n":50,"x":{"r":["position"],"s":"_0===\"Mid\""},"f":[{"t":7,"e":"div","f":[{"t":7,"e":"img","a":{"src":"http://img2.wikia.nocookie.net/__cb20140607013101/leagueoflegends/images/thumb/2/2b/Mage_icon.jpg/110px-Mage_icon.jpg","class":"img-responsive positionpic center-block"}}]}]}," ",{"t":4,"n":50,"x":{"r":["position"],"s":"_0===\"ADC\""},"f":[{"t":7,"e":"div","f":[{"t":7,"e":"img","a":{"src":"http://img1.wikia.nocookie.net/__cb20140607013149/leagueoflegends/images/thumb/0/06/Marksman_icon.jpg/110px-Marksman_icon.jpg","class":"img-responsive positionpic center-block"}}]}]}," ",{"t":4,"n":50,"x":{"r":["position"],"s":"_0===\"Support\""},"f":[{"t":7,"e":"div","f":[{"t":7,"e":"img","a":{"src":"http://img1.wikia.nocookie.net/__cb20140607013321/leagueoflegends/images/thumb/3/34/Support_icon.jpg/110px-Support_icon.jpg","class":"img-responsive positionpic center-block"}}]}]}]}]}]}," ",{"t":7,"e":"div","a":{"class":"row"},"f":[{"t":7,"e":"div","a":{"class":"col-lg-12"},"f":[{"t":7,"e":"div","a":{"class":"well bs-component"},"f":[{"t":7,"e":"form","a":{"class":"form-horizontal"},"f":[{"t":7,"e":"fieldset","f":[{"t":4,"n":50,"x":{"r":["error"],"s":"_0&&_0!=\"\""},"f":[{"t":7,"e":"div","a":{"class":"alert alert-dismissible alert-danger"},"f":[{"t":2,"r":"error"}]}]}," ",{"t":4,"n":50,"x":{"r":["success"],"s":"_0&&_0!=\"\""},"f":[{"t":7,"e":"div","a":{"class":"alert alert-dismissible alert-success"},"f":[{"t":3,"r":"success"}]}]},{"t":4,"n":51,"f":[{"t":7,"e":"legend","f":["Edit Information"]}," ",{"t":7,"e":"label","a":{"for":"email","class":"control-label"},"f":["E-mail"]}," ",{"t":7,"e":"input","a":{"type":"text","class":"form-control","id":"email","value":[{"t":2,"r":"email"}]}}," ",{"t":7,"e":"label","a":{"for":"ingame-name","class":"control-label"},"f":["In-Game name"]}," ",{"t":7,"e":"input","a":{"type":"text","class":"form-control","id":"ingame-name","value":[{"t":2,"r":"ingameName"}]}}," ",{"t":7,"e":"label","a":{"for":"rank","class":"control-label"},"f":["Ladder Rank"]}," ",{"t":7,"e":"input","a":{"type":"text","class":"form-control","id":"rank","value":[{"t":2,"r":"rank"}]}}," ",{"t":7,"e":"label","a":{"for":"position","class":"control-label"},"f":["Favourite Position"]}," ",{"t":7,"e":"input","a":{"type":"text","class":"form-control","id":"position","value":[{"t":2,"r":"position"}]}}," ",{"t":7,"e":"label","a":{"for":"password","class":"control-label"},"f":["Change password"]}," ",{"t":7,"e":"input","a":{"type":"password","class":"form-control","id":"password","value":[{"t":2,"r":"password"}]}}," ",{"t":7,"e":"br"}," ",{"t":7,"e":"input","a":{"type":"button","class":"btn btn-primary","value":"Update"},"v":{"click":"updateProfile"}}," ",{"t":7,"e":"input","a":{"type":"button","class":"btn btn-primary","value":"Delete account"},"v":{"click":"deleteProfile"}}],"x":{"r":["success"],"s":"_0&&_0!=\"\""}}]}]}]}]}]}," ",{"t":7,"e":"div","a":{"class":"bs-docs-section"},"f":[{"t":7,"e":"div","a":{"class":"page-header"},"f":[{"t":7,"e":"h3","f":["Users In Mentorship"]}]}," ",{"t":7,"e":"div","f":[{"t":4,"n":50,"x":{"r":["mentors.length"],"s":"_0>0"},"f":[{"t":4,"n":52,"r":"mentors","i":"index","f":[{"t":7,"e":"div","a":{"class":"bs-component"},"f":[{"t":7,"e":"div","a":{"class":"jumbotron"},"f":[{"t":7,"e":"div","a":{"class":"row"},"f":[{"t":7,"e":"div","a":{"class":"col-sm-4 col-md-4 col-lg-4"},"f":[{"t":7,"e":"h4","f":[{"t":2,"rx":{"r":"mentors","m":[{"t":30,"n":"index"},"userName"]}}]}]}," ",{"t":7,"e":"div","a":{"class":"col-sm-4 col-md-4 col-lg-4"},"f":[{"t":7,"e":"h4","f":["IGN: ",{"t":2,"rx":{"r":"mentors","m":[{"t":30,"n":"index"},"ingameName"]}}]}]}," ",{"t":7,"e":"div","a":{"class":"col-sm-2 col-md-2 col-lg-2"},"f":[{"t":7,"e":"input","a":{"type":"button","class":"btn btn-primary btn-sm","value":"ThumbsUp"},"v":{"click":{"n":"thumbsup","d":[{"t":2,"rx":{"r":"mentors","m":[{"t":30,"n":"index"},"userName"]}}]}}}]}]}]}]}]}]},{"t":4,"n":51,"f":[{"t":7,"e":"div","a":{"class":"alert alert-dismissible alert-success"},"f":[{"t":7,"e":"p","f":["You currently have no mentors or mentees."]}]}],"x":{"r":["mentors.length"],"s":"_0>0"}}]}]}," ",{"t":7,"e":"appfooter"}]}
+module.exports = {"v":1,"t":[{"t":7,"e":"header","f":[{"t":7,"e":"navigation"}]}," ",{"t":7,"e":"div","a":{"class":"row"},"f":[{"t":7,"e":"div","a":{"class":"col-md-12"},"f":[{"t":7,"e":"h1","f":[{"t":7,"e":"img","a":{"src":"http://oi59.tinypic.com/2m5h2dx.jpg","class":"img-responsive"}}]}]}]}," ",{"t":7,"e":"div","a":{"class":"page-header"},"f":[{"t":7,"e":"h1","f":[{"t":3,"r":"userName"},"'s Profile"]}]}," ",{"t":7,"e":"div","a":{"class":"row"},"f":[{"t":7,"e":"div","a":{"class":"col-lg-6 col-md-6"},"f":[{"t":7,"e":"div","a":{"class":"well bs-component"},"f":[{"t":4,"n":50,"x":{"r":["rank"],"s":"_0===\"Diamond\""},"f":[{"t":7,"e":"div","f":[{"t":7,"e":"img","a":{"src":"https://d11y3kg0vwf4zk.cloudfront.net/assets/league/diamond_1-fb06638b5b85ad838890236a526c3b94.png","class":"img-responsive center-block"}}]}]}," ",{"t":4,"n":50,"x":{"r":["rank"],"s":"_0===\"Platinum\""},"f":[{"t":7,"e":"div","f":[{"t":7,"e":"img","a":{"src":"http://lpuboosting.com/img/general/ranks/platinum.png","class":"img-responsive center-block"}}]}]}," ",{"t":4,"n":50,"x":{"r":["rank"],"s":"_0===\"Gold\""},"f":[{"t":7,"e":"div","f":[{"t":7,"e":"img","a":{"src":"https://d11y3kg0vwf4zk.cloudfront.net/assets/league/gold_1-fb62f7a2caa3c755b9f15f473d4af897.png","class":"img-responsive center-block"}}]}]}," ",{"t":4,"n":50,"x":{"r":["rank"],"s":"_0===\"Silver\""},"f":[{"t":7,"e":"div","f":[{"t":7,"e":"img","a":{"src":"https://d11y3kg0vwf4zk.cloudfront.net/assets/league/silver_1-43dd69b33ae36e78ff2cc0cabdd5730c.png","class":"img-responsive center-block"}}]}]}," ",{"t":4,"n":50,"x":{"r":["rank"],"s":"_0===\"Bronze\""},"f":[{"t":7,"e":"div","f":[{"t":7,"e":"img","a":{"src":"http://img2.wikia.nocookie.net/__cb20130928162132/leagueoflegends/images/b/b4/BronzeBadgeSeason2.png","class":"img-responsive center-block"}}]}]}," ",{"t":4,"n":50,"x":{"r":["rank"],"s":"_0===\"Master\""},"f":[{"t":7,"e":"div","f":[{"t":7,"e":"img","a":{"src":"http://www.newsoflegends.com/wp-content/uploads/2014/08/image-80.png","class":"img-responsive center-block"}}]}]}," ",{"t":4,"n":50,"x":{"r":["rank"],"s":"_0===\"Challenger\""},"f":[{"t":7,"e":"div","f":[{"t":7,"e":"img","a":{"src":"http://rankedboost.com/file/2014/09/challenger-rewards-lol.png","class":"img-responsive center-block"}}]}]}]}]}," ",{"t":7,"e":"div","a":{"class":"col-lg-6 col-md-6"},"f":[{"t":7,"e":"div","a":{"class":"well bs-component"},"f":[{"t":4,"n":50,"x":{"r":["position"],"s":"_0===\"Top\""},"f":[{"t":7,"e":"div","f":[{"t":7,"e":"img","a":{"src":"http://img4.wikia.nocookie.net/__cb20140607013217/leagueoflegends/images/thumb/2/2a/Tank_icon.jpg/110px-Tank_icon.jpg","class":"img-responsive positionpic center-block"}}]}]}," ",{"t":4,"n":50,"x":{"r":["position"],"s":"_0===\"Jungle\""},"f":[{"t":7,"e":"div","f":[{"t":7,"e":"img","a":{"src":"http://img1.wikia.nocookie.net/__cb20140607013311/leagueoflegends/images/thumb/1/10/Fighter_icon.jpg/110px-Fighter_icon.jpg","class":"img-responsive positionpic center-block"}}]}]}," ",{"t":4,"n":50,"x":{"r":["position"],"s":"_0===\"Mid\""},"f":[{"t":7,"e":"div","f":[{"t":7,"e":"img","a":{"src":"http://img2.wikia.nocookie.net/__cb20140607013101/leagueoflegends/images/thumb/2/2b/Mage_icon.jpg/110px-Mage_icon.jpg","class":"img-responsive positionpic center-block"}}]}]}," ",{"t":4,"n":50,"x":{"r":["position"],"s":"_0===\"ADC\""},"f":[{"t":7,"e":"div","f":[{"t":7,"e":"img","a":{"src":"http://img1.wikia.nocookie.net/__cb20140607013149/leagueoflegends/images/thumb/0/06/Marksman_icon.jpg/110px-Marksman_icon.jpg","class":"img-responsive positionpic center-block"}}]}]}," ",{"t":4,"n":50,"x":{"r":["position"],"s":"_0===\"Support\""},"f":[{"t":7,"e":"div","f":[{"t":7,"e":"img","a":{"src":"http://img1.wikia.nocookie.net/__cb20140607013321/leagueoflegends/images/thumb/3/34/Support_icon.jpg/110px-Support_icon.jpg","class":"img-responsive positionpic center-block"}}]}]}]}]}]}," ",{"t":7,"e":"div","a":{"class":"row"},"f":[{"t":7,"e":"div","a":{"class":"col-lg-12"},"f":[{"t":7,"e":"div","a":{"class":"well bs-component"},"f":[{"t":7,"e":"form","a":{"class":"form-horizontal"},"f":[{"t":7,"e":"fieldset","f":[{"t":4,"n":50,"x":{"r":["error"],"s":"_0&&_0!=\"\""},"f":[{"t":7,"e":"div","a":{"class":"alert alert-dismissible alert-danger"},"f":[{"t":2,"r":"error"}]}]}," ",{"t":4,"n":50,"x":{"r":["success"],"s":"_0&&_0!=\"\""},"f":[{"t":7,"e":"div","a":{"class":"alert alert-dismissible alert-success"},"f":[{"t":3,"r":"success"}]}]},{"t":4,"n":51,"f":[{"t":7,"e":"legend","f":["Edit Information"]}," ",{"t":7,"e":"label","a":{"for":"email","class":"control-label"},"f":["E-mail"]}," ",{"t":7,"e":"input","a":{"type":"text","class":"form-control","id":"email","value":[{"t":2,"r":"email"}]}}," ",{"t":7,"e":"label","a":{"for":"ingame-name","class":"control-label"},"f":["In-Game name"]}," ",{"t":7,"e":"input","a":{"type":"text","class":"form-control","id":"ingame-name","value":[{"t":2,"r":"ingameName"}]}}," ",{"t":7,"e":"label","a":{"for":"rank","class":"control-label"},"f":["Ladder Rank"]}," ",{"t":7,"e":"input","a":{"type":"text","class":"form-control","id":"rank","value":[{"t":2,"r":"rank"}]}}," ",{"t":7,"e":"label","a":{"for":"position","class":"control-label"},"f":["Favourite Position"]}," ",{"t":7,"e":"input","a":{"type":"text","class":"form-control","id":"position","value":[{"t":2,"r":"position"}]}}," ",{"t":7,"e":"label","a":{"for":"password","class":"control-label"},"f":["Change password"]}," ",{"t":7,"e":"input","a":{"type":"password","class":"form-control","id":"password","value":[{"t":2,"r":"password"}]}}," ",{"t":7,"e":"br"}," ",{"t":7,"e":"input","a":{"type":"button","class":"btn btn-primary","value":"Update"},"v":{"click":"updateProfile"}}],"x":{"r":["success"],"s":"_0&&_0!=\"\""}}]}]}]}]}]}," ",{"t":7,"e":"div","a":{"class":"bs-docs-section"},"f":[{"t":7,"e":"div","a":{"class":"page-header"},"f":[{"t":7,"e":"h3","f":["Users In Mentorship"]}]}," ",{"t":7,"e":"div","f":[{"t":4,"n":50,"x":{"r":["mentors.length"],"s":"_0>0"},"f":[{"t":4,"n":52,"r":"mentors","i":"index","f":[{"t":7,"e":"div","a":{"class":"bs-component"},"f":[{"t":7,"e":"div","a":{"class":"jumbotron"},"f":[{"t":7,"e":"div","a":{"class":"row"},"f":[{"t":7,"e":"div","a":{"class":"col-sm-4 col-md-4 col-lg-4"},"f":[{"t":7,"e":"h4","f":[{"t":2,"rx":{"r":"mentors","m":[{"t":30,"n":"index"},"userName"]}}]}]}," ",{"t":7,"e":"div","a":{"class":"col-sm-4 col-md-4 col-lg-4"},"f":[{"t":7,"e":"h4","f":["IGN: ",{"t":2,"rx":{"r":"mentors","m":[{"t":30,"n":"index"},"ingameName"]}}]}]}," ",{"t":7,"e":"div","a":{"class":"col-sm-2 col-md-2 col-lg-2"},"f":[{"t":7,"e":"input","a":{"type":"button","class":"btn btn-primary btn-sm","value":"ThumbsUp"},"v":{"click":{"n":"thumbsup","d":[{"t":2,"rx":{"r":"mentors","m":[{"t":30,"n":"index"},"userName"]}}]}}}]}]}]}]}]}]},{"t":4,"n":51,"f":[{"t":7,"e":"div","a":{"class":"alert alert-dismissible alert-success"},"f":[{"t":7,"e":"p","f":["You currently have no mentors or mentees."]}]}],"x":{"r":["mentors.length"],"s":"_0>0"}}]}]}," ",{"t":7,"e":"appfooter"}]}
 },{}],24:[function(require,module,exports){
 module.exports = {"v":1,"t":[{"t":7,"e":"header","f":[{"t":7,"e":"navigation"}]}," ",{"t":7,"e":"div","a":{"class":"row"},"f":[{"t":7,"e":"div","a":{"class":"col-md-12"},"f":[{"t":7,"e":"h1","f":[{"t":7,"e":"img","a":{"src":"http://oi57.tinypic.com/eimfs3.jpg","class":"img-responsive"}}]}]}]}," ",{"t":7,"e":"div","a":{"class":"page-header"},"f":[{"t":7,"e":"h1","f":["Register"]}]}," ",{"t":7,"e":"div","a":{"class":"row"},"f":[{"t":7,"e":"div","a":{"class":"col-lg-12"},"f":[{"t":7,"e":"div","a":{"class":"well bs-component"},"f":[{"t":7,"e":"form","a":{"class":"form-horizontal"},"f":[{"t":7,"e":"fieldset","f":[{"t":4,"n":50,"x":{"r":["error"],"s":"_0&&_0!=\"\""},"f":[{"t":7,"e":"div","a":{"class":"alert alert-dismissible alert-danger"},"f":[{"t":2,"r":"error"}]}]}," ",{"t":4,"n":50,"x":{"r":["success"],"s":"_0&&_0!=\"\""},"f":[{"t":7,"e":"div","a":{"class":"alert alert-dismissible alert-success"},"f":[{"t":3,"r":"success"}]}]},{"t":4,"n":51,"f":[{"t":7,"e":"legend","f":["Please Enter Your Information"]}," ",{"t":7,"e":"label","a":{"for":"userName","class":"control-label"},"f":["Username"]}," ",{"t":7,"e":"input","a":{"type":"text","class":"form-control","id":"userName","value":[{"t":2,"r":"userName"}]}}," ",{"t":7,"e":"label","a":{"for":"ingameName","class":"control-label"},"f":["In-game name"]}," ",{"t":7,"e":"input","a":{"type":"text","class":"form-control","id":"ingameName","value":[{"t":2,"r":"ingameName"}]}}," ",{"t":7,"e":"label","a":{"for":"rank","class":"control-label"},"f":["Ladder Rank"]}," ",{"t":7,"e":"input","a":{"type":"text","class":"form-control","id":"rank","value":[{"t":2,"r":"rank"}]}}," ",{"t":7,"e":"label","a":{"for":"position","class":"control-label"},"f":["Favourite Position"]}," ",{"t":7,"e":"input","a":{"type":"text","class":"form-control","id":"position","value":[{"t":2,"r":"position"}]}}," ",{"t":7,"e":"label","a":{"for":"email","class":"control-label"},"f":["Email"]}," ",{"t":7,"e":"input","a":{"type":"text","class":"form-control","id":"email","value":[{"t":2,"r":"email"}]}}," ",{"t":7,"e":"label","a":{"for":"password","class":"control-label"},"f":["Password"]}," ",{"t":7,"e":"input","a":{"type":"password","class":"form-control","id":"password","value":[{"t":2,"r":"password"}]}}," ",{"t":7,"e":"br"}," ",{"t":7,"e":"input","a":{"type":"button","class":"btn btn-primary","value":"Register"},"v":{"click":"register"}}],"x":{"r":["success"],"s":"_0&&_0!=\"\""}}]}]}]}]}]}," ",{"t":7,"e":"appfooter"}]}
 },{}]},{},[7])
