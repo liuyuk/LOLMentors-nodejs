@@ -20,7 +20,9 @@
         <div class="alert alert-dismissible alert-success">{{{success}}}</div>
       {{/if}}
       <label class="control-label">Title</label>
-      <textarea class="form-control" rows="3" value="{{title}}"></textarea>
+      <textarea class="form-control" rows="1" value="{{title}}"></textarea>
+      <label class="control-label">Searching for: Mentor, Mentee, Others</label>
+      <textarea class="form-control" rows="1" value="{{type}}"></textarea>
       <label class="control-label">Details</label>
       <textarea class="form-control" rows="3" value="{{details}}"></textarea>
       <br />
@@ -36,14 +38,20 @@
       <div class="jumbotron">
         <div class="row">
               <div class="col-sm-4 col-md-4 col-lg-4">
-                <h4>{{posts[index].title}} </h4>
+                <h4>{{posts[index].title}}</h4>
+              </div>
+              <div class="col-sm-4 col-md-4 col-lg-4 col-lg-offset-8 col-md-offset-8">
+                <h5>Searching For: {{posts[index].type}}</h5>
               </div>
               <div class="col-sm-4 col-md-4 col-lg-4 col-lg-offset-8 col-md-offset-8">
                 <p>By: {{posts[index].userName}}</p>
               </div>
         </div>
         <p><small>{{posts[index].details}}</small></p>
-        <input type="button" class="btn btn-primary btn-sm" value="Comment" on-click="comment:{{posts[index].id}}" />
+        <p><a href="/posts/{{posts[index].id}}" class="btn btn-primary btn-sm">
+              View this request
+            </a>
+        </p>
       </div>
     </div>
   </div>

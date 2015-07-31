@@ -1,5 +1,6 @@
 var sha1 = require('sha1');
 var ObjectId = require('mongodb').ObjectID;
+var disableUpdate = false;
 
 var response = function(result, res) {
   res.writeHead(200, {'Content-Type': 'application/json'});
@@ -111,10 +112,12 @@ Router
           error('Please fill in your e-mail.', res);
         } else if(!data.ingameName || data.ingameName === '') {
           error('Please fill in your in-game name.', res);
-        } else if(!data.rank || data.rank === '') {
-          error('Please fill in your ladder rank.', res);
-        } else if(!data.position || data.position === '') {
-          error('Please fill in your favourite position.', res);
+        } else if(data.rank != 'Bronze' && data.rank != 'Silver' && data.rank != 'Gold' && data.rank != 'Platinum' && data.rank != 'Diamond' && data.rank != 'Master' && data.rank != 'Challenger') {
+          error('Invalid ladder rank, Choose a ladder rank from the following: Bronze, Silver, Gold, Platinum, Diamond, Master, Challenger', res);
+        } else if(data.position != "Top" && data.position != "Mid" && data.position != "Jungle" && data.position != "ADC" && data.position != "Support") {
+          error('Invalid position. Choose a position from the following: Top, Mid, Jungle, ADC, Support', res);
+        } else if(disableUpdate == true) {
+          error('Sorry, due to a bug, update profile is disabled', res);
         } else {
           getDatabaseConnection(function(db) {
             var collection = db.collection('users');
@@ -152,10 +155,10 @@ Router
           error('Invalid or missing email.', res);
         } else if(!data.password || data.password === '') {
           error('Invalid or missing password.', res);
-        } else if(!data.rank || data.rank === '') {
-          error('Invalid or missing ladder rank.', res);
-        } else if(!data.position || data.position === '') {
-          error('Invalid or missing position.', res);
+        } else if(data.rank != 'Bronze' && data.rank != 'Silver' && data.rank != 'Gold' && data.rank != 'Platinum' && data.rank != 'Diamond' && data.rank != 'Master' && data.rank != 'Challenger') {
+          error('Invalid ladder rank. Choose a ladder rank from the following: Bronze, Silver, Gold, Platinum, Diamond, Master, Challenger', res);
+        } else if(data.position != "Top" && data.position != "Mid" && data.position != "Jungle" && data.position != "ADC" && data.position != "Support") {
+          error('Invalid position. Choose a position from the following: Top, Mid, Jungle, ADC, Support', res);
         } else {
           getDatabaseConnection(function(db) {
             var collection = db.collection('users');
@@ -199,8 +202,6 @@ Router
             foundMentors.push({
               id: result[i]._id,
               userName: result[i].userName,
-              rank: result[i].rank,
-              position: result[i].position
             });
           };
           response({
@@ -238,6 +239,7 @@ Router
         if(err) {
           error('Error, could not update mentorship status', res);
         } else {
+          disableUpdate = true;
           response({
             success: 'OK'
           }, res);
@@ -315,12 +317,15 @@ Router
         form.parse(req, function(err, formData, files) {
           var data = {
             title: formData.title,
-            details: formData.details
+            details: formData.details,
+            type: formData.type
           };
           if (!data.title || data.title === '') {
             error('Cannot post without a title.', res);
           } else if (!data.details || data.details === '') {
             error('Cannot post without some details.', res);
+          } else if (data.type != 'Mentor' && data.type != 'Mentee' && data.type != 'Others') {
+            error('Invalid type, choose from - Mentor, Mentee, or Others', res);
           } else {
             var processPost = function() {
               response({

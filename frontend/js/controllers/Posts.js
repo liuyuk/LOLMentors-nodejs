@@ -14,12 +14,14 @@ module.exports = Ractive.extend({
       var formData = new FormData();
       formData.append("title", this.get('title'));
       formData.append("details", this.get('details'));
+      formData.append("type", this.get('type'));
       model.create(formData, function(error, result) {
         if(error) {
           self.set('error', error.error);
         } else {
           self.set('title', '');
           self.set('details', '');
+          self.set('type', '');
           self.set('error', false);
           self.set('success', 'Sucessfully added the post.');
         }
