@@ -5,7 +5,7 @@
 
 var http = require('http');
 var session = require('cookie-session');
-var port = 9000;
+var port = server.listen(process.env.PORT || 3000);
 
 var Assets = require('./backend/Assets');
 var API = require('./backend/API');
