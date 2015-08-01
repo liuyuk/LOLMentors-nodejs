@@ -30,6 +30,8 @@ var process = function(req, res) {
   Router.check(req.url, [req, res]);
 }
 
-var app = http.createServer(checkSession).listen(3000)
+var app = http.createServer(checkSession).listen(8124, function() { //'listening' listener
+  console.log('server bound');
+});
 //console.log("Listening on 127.0.0.1:" + port);
 
