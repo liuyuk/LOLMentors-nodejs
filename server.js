@@ -11,7 +11,7 @@ var Assets = require('./backend/Assets');
 var API = require('./backend/API');
 var Default = require('./backend/Default');
 
-var Router = require('./frontend/js/lib/router')();
+var Router = require('./frontend/js/lib/Router')();
 
 Router
 .add('static', Assets)
