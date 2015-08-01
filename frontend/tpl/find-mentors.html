@@ -13,7 +13,8 @@
     {{#if loading}}
     <p>Loading. Please wait.</p>
     {{else}}
-    <h4>Please set your desired mentor's username, position, or ladder rank:</h4>
+    <h4>Please provide some information about your mentor/mentee</h4>
+    <p>e.g. Username, Favourite Position, Ladder Rank</p>
     <input type="text" class="form-control" id="inputCri" value="{{inputCri}}" />
     <br />
     <input type="button" class="btn btn-primary" value="Find" on-click="find" />
@@ -51,7 +52,6 @@
                 <div><img src="http://rankedboost.com/file/2014/09/challenger-rewards-lol.png" class="img-responsive center-block"></div>
                 {{/if}}
             </div>
-            <br>
             <div class="col-sm-4 col-lg-4 col-md-4  col-centered">
                 {{#if position === 'Top'}}
                 <div><img src="http://img4.wikia.nocookie.net/__cb20140607013217/leagueoflegends/images/thumb/2/2a/Tank_icon.jpg/110px-Tank_icon.jpg" class="img-responsive positionpic center-block"></div>
@@ -69,8 +69,6 @@
                 <div><img src="http://img1.wikia.nocookie.net/__cb20140607013321/leagueoflegends/images/thumb/3/34/Support_icon.jpg/110px-Support_icon.jpg" class="img-responsive positionpic center-block"></div>
                 {{/if}}
             </div>
-
-            <br>
 
             <div class="col-sm-2 col-md-2 col-lg-2  text-center">
                 <input type="button" class="btn btn-primary btn-sm" value="Add as Mentor" on-click="add:{{id}}" />
