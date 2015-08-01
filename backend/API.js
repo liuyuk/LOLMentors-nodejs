@@ -27,7 +27,7 @@ var getDatabaseConnection = function(callback) {
     });
   }
 };
-
+/***random comment*/
 var getUser = function(callback, req, res) {
   getDatabaseConnection(function(db) {
     var collection = db.collection('users');
@@ -54,7 +54,7 @@ var processPOSTRequest = function(req, callback) {
   });
 };
 
-var Router = require('../frontend/js/lib/router')();
+var Router = require('../frontend/js/lib/Router')();
 Router
 .add('api/version', function(req, res) {
   response({
