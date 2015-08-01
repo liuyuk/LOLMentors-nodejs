@@ -18,7 +18,7 @@ var getDatabaseConnection = function(callback) {
     callback(database);
     return;
   } else {
-    MongoClient.connect('mongodb://127.0.0.1:27017/lolmentors', function(err, db) {
+    MongoClient.connect('mongodb://lolmentors:lolmentorspw@dogen.mongohq.com:10032/LOLMentor-nodejs', function(err, db) {
       if(err) {
         throw err;
       };
