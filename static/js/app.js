@@ -325,6 +325,7 @@ window.onload = function() {
 },{"./controllers/FindMentors":1,"./controllers/Home":2,"./controllers/Login":3,"./controllers/Posts":4,"./controllers/Profile":5,"./controllers/Register":6,"./lib/Router":9,"./models/User":13}],8:[function(require,module,exports){
 /*
   Ajax library used for asynchronous client/server interations.
+  Detailed explanations in the documentations.
   Source: "Node.js By Example"
 */
 
@@ -415,6 +416,7 @@ module.exports = {
 },{}],9:[function(require,module,exports){
 /*
   Router component used for front-end back-end communication.
+  Detailed explaination in the decumentation.
   Source: "Node.js By Example"
 */
 
@@ -485,7 +487,8 @@ module.exports = function() {
 };
 },{}],10:[function(require,module,exports){
 /*
-  Common functions used by other models
+  Common functions used by other models.
+  Detailed explanations in the documentations.
   Source: "Node.js By Example"
 */
 

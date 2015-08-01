@@ -1,5 +1,6 @@
 /*
   Router component used for front-end back-end communication.
+  Detailed explaination in the decumentation.
   Source: "Node.js By Example"
 */
 

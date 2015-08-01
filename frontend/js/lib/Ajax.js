@@ -1,5 +1,6 @@
 /*
   Ajax library used for asynchronous client/server interations.
+  Detailed explanations in the documentations.
   Source: "Node.js By Example"
 */
 

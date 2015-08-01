@@ -1,5 +1,6 @@
 /*
-  Common functions used by other models
+  Common functions used by other models.
+  Detailed explanations in the documentations.
   Source: "Node.js By Example"
 */
 
