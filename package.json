@@ -1,7 +1,7 @@
 {
-  "name": "nodejs-by-example",
+  "name": "lolmentors",
   "version": "0.0.1",
-  "description": "Node.js by example",
+  "description": "LOLMentors",
   "scripts": {
     "start": "node server.js"
   },
