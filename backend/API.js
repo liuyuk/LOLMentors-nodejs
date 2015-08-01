@@ -1,3 +1,7 @@
+/*  
+  Main server side component which handles all REET API requests.
+*/
+
 var sha1 = require('sha1');
 var ObjectId = require('mongodb').ObjectID;
 var disableUpdate = false;
@@ -10,6 +14,11 @@ var error = function(message, res) {
   res.writeHead(500, {'Content-Type': 'application/json'});
   res.end(JSON.stringify({error: message}) + '\n');
 };
+
+/*
+  Database declarations.
+  Compose.io remote mongodb is used.
+*/
 
 var MongoClient = require('mongodb').MongoClient;
 var database;
@@ -28,6 +37,10 @@ var getDatabaseConnection = function(callback) {
   }
 };
 
+/*
+  Helper function which sets the current logged in user.
+*/
+
 var getUser = function(callback, req, res) {
   getDatabaseConnection(function(db) {
     var collection = db.collection('users');
@@ -43,6 +56,11 @@ var getUser = function(callback, req, res) {
   });
 };
 
+/*
+  Helper function which handles the fetching of POST requests.
+  GET requests are handled defaultly on fetch.
+*/
+
 var querystring = require('querystring');
 var processPOSTRequest = function(req, callback) {
   var body = '';
@@ -54,11 +72,16 @@ var processPOSTRequest = function(req, callback) {
   });
 };
 
+/*
+  All the REST API calls can be handled below.
+  Details on each can be found in the documentation.
+  Aids used: "Node.js By Example"
+*/
 var Router = require('../frontend/js/lib/Router')();
 Router
 .add('api/version', function(req, res) {
   response({
-    version: '0.1'
+    version: '1.0'
   }, res);
 })
 .add('api/user/login', function(req, res) {

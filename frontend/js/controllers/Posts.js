@@ -1,3 +1,8 @@
+/*
+  Controller module for the post-request function.
+  Handles the getting and setting a user post(request).
+*/
+
 var PostModel = require('../models/Posts');
 
 module.exports = Ractive.extend({
