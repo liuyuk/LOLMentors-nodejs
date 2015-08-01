@@ -22,16 +22,15 @@ var checkSession = function(req, res) {
   session({
     keys: ['LOLMentors']
   })(req, res, function() {
-    process(req, res);
+    unofficial_process(req, res);
   });
 }
 
-var process = function(req, res) {
+var unofficial_process = function(req, res) {
   Router.check(req.url, [req, res]);
 }
 
-var app = http.createServer(checkSession).listen(8124, function() { //'listening' listener
-  console.log('server bound');
-});
-//console.log("Listening on 127.0.0.1:" + port);
+var port = Number(process.env.PORT || 3000);
+var app = http.createServer(checkSession).listen(port);
+console.log("Listening on port " + port);
 
