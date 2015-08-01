@@ -5,7 +5,7 @@
 
 var http = require('http');
 var session = require('cookie-session');
-var port = server.listen(process.env.PORT || 3000);
+//var port =  3000;
 
 var Assets = require('./backend/Assets');
 var API = require('./backend/API');
@@ -30,6 +30,6 @@ var process = function(req, res) {
   Router.check(req.url, [req, res]);
 }
 
-var app = http.createServer(checkSession).listen(port, '127.0.0.1');
-console.log("Listening on 127.0.0.1:" + port);
+var app = http.createServer(checkSession).listen(3000)
+//console.log("Listening on 127.0.0.1:" + port);
 
