@@ -27,7 +27,7 @@ var getDatabaseConnection = function(callback) {
     });
   }
 };
-/***random comment*/
+
 var getUser = function(callback, req, res) {
   getDatabaseConnection(function(db) {
     var collection = db.collection('users');
