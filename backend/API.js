@@ -1,5 +1,5 @@
 /*  
-  Main server side component which handles all REET API requests.
+  Main server side component which handles all REST API requests.
 */
 
 var sha1 = require('sha1');
