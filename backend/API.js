@@ -1,5 +1,5 @@
 /*  
-  Main server side component which handles all REST API requests.
+  Primary server side component which handles all REST API requests.
 */
 
 var sha1 = require('sha1');
@@ -73,7 +73,7 @@ var processPOSTRequest = function(req, callback) {
 };
 
 /*
-  All the REST API calls can be handled below.
+  All the REST API calls are handled below.
   Details on each can be found in the documentation.
   Aids used: "Node.js By Example"
 */
