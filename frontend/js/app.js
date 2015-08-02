@@ -5,6 +5,7 @@
 
 var Router = require('./lib/Router')();
 var Home = require('./controllers/Home');
+var Loader = require('./controllers/Loader');
 var Register = require('./controllers/Register');
 var Login = require('./controllers/Login');
 var Profile = require('./controllers/Profile');
@@ -32,6 +33,10 @@ window.onload = function() {
     Router
     .add('home', function() {
       var p = new Home();
+      showPage(p);
+    })
+    .add('loader', function() {
+      var p = new Loader();
       showPage(p);
     })
     .add('register', function() {
