@@ -63,10 +63,10 @@ module.exports = Ractive.extend({
 });
 },{"../../tpl/home":20,"../views/Footer":16,"../views/Navigation":17}],3:[function(require,module,exports){
 module.exports = Ractive.extend({
-  template: require('../../tpl/loaderio-e83d2f8047d837374b90c92c9d9cda5f'),
+  template: require('../../tpl/loaderio-44c97e4fd363c827b5b03756540133a2'),
   onrender: function() {}
 });
-},{"../../tpl/loaderio-e83d2f8047d837374b90c92c9d9cda5f":21}],4:[function(require,module,exports){
+},{"../../tpl/loaderio-44c97e4fd363c827b5b03756540133a2":21}],4:[function(require,module,exports){
 /*
   Controller module of the login page.
   Receives userName and password values
@@ -760,7 +760,7 @@ module.exports = {"v":1,"t":[{"t":7,"e":"footer","f":["Version: ",{"t":2,"r":"ve
 },{}],20:[function(require,module,exports){
 module.exports = {"v":1,"t":[{"t":7,"e":"header","f":[{"t":7,"e":"navigation"}]}," ",{"t":7,"e":"div","a":{"class":"row"},"f":[{"t":7,"e":"div","a":{"class":"col-md-12"},"f":[{"t":7,"e":"h1","f":[{"t":7,"e":"img","a":{"src":"http://oi60.tinypic.com/evctbk.jpg","class":"img-responsive"}}]}]}]}," ",{"t":7,"e":"div","a":{"class":"page-header"},"f":[{"t":7,"e":"div","a":{"class":"row"},"f":[{"t":7,"e":"div","a":{"class":"col-lg-8 col-md-7 col-sm-6"},"f":[{"t":7,"e":"h1","f":["Welcome to LOLMentors"]}," ",{"t":7,"e":"p","a":{"class":"lead"},"f":["A website designed to help fellow summoners improve"]}]}]}]}," ",{"t":7,"e":"appfooter"}]}
 },{}],21:[function(require,module,exports){
-module.exports = {"v":1,"t":["loaderio-e83d2f8047d837374b90c92c9d9cda5f"]}
+module.exports = {"v":1,"t":["loaderio-44c97e4fd363c827b5b03756540133a2"]}
 },{}],22:[function(require,module,exports){
 module.exports = {"v":1,"t":[{"t":7,"e":"header","f":[{"t":7,"e":"navigation"}]}," ",{"t":7,"e":"div","a":{"class":"row"},"f":[{"t":7,"e":"div","a":{"class":"col-md-12"},"f":[{"t":7,"e":"h1","f":[{"t":7,"e":"img","a":{"src":"http://oi57.tinypic.com/eimfs3.jpg","class":"img-responsive"}}]}]}]}," ",{"t":7,"e":"div","a":{"class":"page-header"},"f":[{"t":7,"e":"h1","f":["Login"]}]}," ",{"t":7,"e":"div","a":{"class":"row"},"f":[{"t":7,"e":"div","a":{"class":"col-lg-12"},"f":[{"t":7,"e":"div","a":{"class":"well bs-component"},"f":[{"t":7,"e":"form","a":{"class":"form-horizontal"},"f":[{"t":7,"e":"fieldset","f":[{"t":4,"n":50,"x":{"r":["error"],"s":"_0&&_0!=\"\""},"f":[{"t":7,"e":"div","a":{"class":"alert alert-dismissible alert-danger"},"f":[{"t":2,"r":"error"}]}]}," ",{"t":4,"n":50,"x":{"r":["success"],"s":"_0&&_0!=\"\""},"f":[{"t":7,"e":"div","a":{"class":"alert alert-dismissible alert-success"},"f":[{"t":3,"r":"success"}]}]},{"t":4,"n":51,"f":[{"t":7,"e":"legend","f":["Please Enter Your Information"]}," ",{"t":7,"e":"label","a":{"for":"userName","class":"control-label"},"f":["Username"]}," ",{"t":7,"e":"input","a":{"type":"text","class":"form-control","id":"userName","value":[{"t":2,"r":"userName"}]}}," ",{"t":7,"e":"label","a":{"for":"password","class":"control-label"},"f":["Password"]}," ",{"t":7,"e":"input","a":{"type":"password","class":"form-control","id":"password","value":[{"t":2,"r":"password"}]}}," ",{"t":7,"e":"br"}," ",{"t":7,"e":"input","a":{"type":"button","class":"btn btn-primary","value":"Login"},"v":{"click":"login"}}],"x":{"r":["success"],"s":"_0&&_0!=\"\""}}]}]}]}]}]}," ",{"t":7,"e":"appfooter"}]}
 },{}],23:[function(require,module,exports){

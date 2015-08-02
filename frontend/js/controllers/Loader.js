@@ -1,4 +1,4 @@
 module.exports = Ractive.extend({
-  template: require('../../tpl/loaderio-e83d2f8047d837374b90c92c9d9cda5f'),
+  template: require('../../tpl/loaderio-44c97e4fd363c827b5b03756540133a2'),
   onrender: function() {}
 });
