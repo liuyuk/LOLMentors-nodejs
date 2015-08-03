@@ -6,13 +6,13 @@
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         {{#if !isLogged }}
-          <li><a on-click="goto:register">Register</a></li>
-          <li><a on-click="goto:login">Login</a></li>
+          <li><a id="navregister" on-click="goto:register">Register</a></li>
+          <li><a id="navlogin" on-click="goto:login">Login</a></li>
         {{else}}
-          <li><a on-click="goto:profile">Profile</a></li>
-          <li><a on-click="goto:find-mentors">Find Mentors</a></li>
-          <li><a on-click="goto:posts">Post Request</a></li>
-          <li class="right"><a on-click="goto:logout">Logout</a></li>
+          <li><a id="navprofile" on-click="goto:profile">Profile</a></li>
+          <li><a id="navfindmentor" on-click="goto:find-mentors">Find Mentors</a></li>
+          <li><a id="navposts" on-click="goto:posts">Post Request</a></li>
+          <li class="right"><a id="navlogout" on-click="goto:logout">Logout</a></li>
         {{/if}}
       </ul>
     </div>
