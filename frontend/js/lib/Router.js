@@ -1,5 +1,5 @@
 /*
-  Router component used for front-end back-end communication.
+  Router component used for url manipulation.
   Detailed explaination in the decumentation.
   Source: "Node.js By Example"
 */

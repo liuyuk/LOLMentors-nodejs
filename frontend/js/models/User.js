@@ -1,5 +1,5 @@
 /*
-  Model component for login/logout functionalities.
+  Model component for user related functionalities.
 */
 
 var ajax = require('../lib/Ajax');
