@@ -148,7 +148,6 @@ module.exports = {
             .type('textarea:nth-child(7)', 'automatic test -- executed by test.js')
             .click('.form-horizontal .btn')
             .wait(2000)
-            .screenshot('post1.png')
             // check the post
             .open('https://lolmentors.herokuapp.com/posts') //reload
             .wait(2000)
